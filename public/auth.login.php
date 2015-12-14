@@ -2,7 +2,7 @@
 
 require_once '../utils/Auth.php';
 require_once '../utils/Input.php';
-require_once '../Logger.php'; 
+require_once '../utils/Logger.php'; 
 
 function pageController()
 {
