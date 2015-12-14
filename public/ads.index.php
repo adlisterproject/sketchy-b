@@ -2,13 +2,9 @@
 ?>
 
 <html>
-<head>
-	<?= require "../public/navbar.php";
-	?>
-	<title></title>
-</head>
+<?php require_once('../views/header.php') ?>
 <body>
-
+<?php require_once ("../views/navbar.php");?>
 </body>
 </html>
 
