@@ -9,7 +9,7 @@
 <body>
 	<h1>Welcome to Sketchy-B!</h1>
 	<div id = "user_create">
-		<a href="user.create.php">Create a Profile!</a>
+		<a href="users.create.php">Create a Profile!</a>
 	</div>
 	
 </body>
