@@ -8,7 +8,10 @@ $stmt = $dbc->prepare($query);
 
 $ads_list = [
 
-	['item_name' => 'Nintendo 64', 'price' => '75.00', 'description' => 'An old nintendo 64.', 'contact' => 'alex@alex.gmail']
+	['item_name' => 'Nintendo 64', 'price' => '75.00', 'description' => 'An old nintendo 64.', 'contact' => 'alex@alex.gmail'],
+	['item_name' => 'Playstation', 'price' => '64.00', 'description' => 'An old Playstation.', 'contact' => 'alex@gmail.com'],
+	['item_name' => 'Gameboy', 'price' => '15.00', 'description' => 'An old Gameboy.', 'contact' => 'danny@gmail.com'],
+	['item_name' => 'Xbox', 'price' => '100.00', 'description' => 'An old xbox.', 'contact' => 'ryan@gmail.com']
 
 ];
 
@@ -20,14 +23,15 @@ foreach ($ads_list as $ad) {
 	$stmt->execute();
 }
 
-$query = "INSERT INTO users (email, password) VALUES (:email, :password)";
+$query = "INSERT INTO users (username, email, password) VALUES (:username, :email, :password)";
 $stmt = $dbc->prepare($query);
 
 $users= [
-	['email' => 'randy@randy.com', 'password' => 'tell34324']
+	['username' => 'randy', 'email' => 'randy@randy.com', 'password' => 'tell34324']
 ];
 
 foreach ($users as $user){
+	$stmt->bindValue(':username', $user['username'], PDO::PARAM_STR);
 	$stmt->bindValue(':email', $user['email'], PDO::PARAM_STR);
 	$stmt->bindValue(':password', $user['password'], PDO::PARAM_STR);
 	$stmt->execute();
