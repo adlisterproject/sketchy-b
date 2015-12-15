@@ -28,7 +28,7 @@ class BaseModel {
                 ';dbname='. DB_NAME, DB_USER, DB_PASSWORD
             );
             self::$dbc->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-            echo self::$dbc->getAttribute(PDO::ATTR_CONNECTION_STATUS) . PHP_EOL;
+            // echo self::$dbc->getAttribute(PDO::ATTR_CONNECTION_STATUS) . PHP_EOL;
 
         }
     }

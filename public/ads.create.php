@@ -4,16 +4,24 @@ require_once '../utils/Auth.php';
 require_once '../utils/Input.php';
 require_once '../models/Ad.php';
 
-function insertAds($dbc){
 
-	$insert = "INSERT INTO " . static::$table . " (item_name, price, description, contact)
-	VALUES (:item_name, :price, :description, :contact)";
-	$stmt->bindValue(':item_name', $this->attributes['item_name'], PDO::PARAM_STR);
-	$stmt->bindValue(':price', $this->attributes['price'], PDO::PARAM_STR);
-	$stmt->bindValue(':description', $this->attributes['description'], PDO::PARAM_STR);
-	$stmt->bindValue(':contact', $this->attributes['contact'], PDO::PARAM_STR);
-	$stmt->execute();
-}
+
+	// $insert = "INSERT INTO ads_list (item_name, price, description, contact)
+	// VALUES (:item_name, :price, :description, :contact)";
+	// $stmt->bindValue(':item_name', $ad['item_name'], PDO::PARAM_STR);
+	// $stmt->bindValue(':price', $ad['price'], PDO::PARAM_STR);
+	// $stmt->bindValue(':description', $ad['description'], PDO::PARAM_STR);
+	// $stmt->bindValue(':contact', $ad['contact'], PDO::PARAM_STR);
+	// $stmt->execute();
+
+	// $insert = "INSERT INTO " . static::$table . " (item_name, price, description, contact)
+	// VALUES (:item_name, :price, :description, :contact)";
+	// $stmt = self::$dbc->prepare($insert);
+	// $stmt->bindValue(':item_name', $this->attributes['item_name'], PDO::PARAM_STR);
+	// $stmt->bindValue(':price', $this->attributes['price'], PDO::PARAM_STR);
+	// $stmt->bindValue(':description', $this->attributes['description'], PDO::PARAM_STR);
+	// $stmt->bindValue(':contact', $this->attributes['contact'], PDO::PARAM_STR);
+	// $stmt->execute();
 
 if(!empty($_POST)){
 	if(
@@ -21,7 +29,12 @@ if(!empty($_POST)){
 	Input::notEmpty('price') &&
 	Input::notEmpty('description') &&
 	Input::notEmpty('contact')){
-		insertAds($dbc);
+	$ad= new Ad();
+	$ad->item_name= $item_name;
+	$ad->price= $price;
+	$ad->description= $description;
+	$ad->contact= $contact;
+	$ad->save();
 	}
 }
 
@@ -54,7 +67,7 @@ if(!empty($_POST)){
 
 <div class= "form_ads">
 	<form method= "POST" action="ads.index.php">
-		<input type="text" id="name" name="username" placeholder="Item Name">
+		<input type="text" id="item_name" name="username" placeholder="Item Name">
 		<br>
 		<input type="text" id="price" name="price" placeholder="Price">
 		<br>
