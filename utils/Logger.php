@@ -12,7 +12,7 @@ class Log
 
 	protected function setFilename($prefix = 'log')
 	{
-		$this->filename = "../data/". $prefix . date('Y-m-d') . ".log";
+		$this->filename = "../utils/data/". $prefix . date('Y-m-d') . ".log";
 	}
 
 	protected function setHandle()
