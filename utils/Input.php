@@ -86,6 +86,14 @@ class Input
         return self::get($key);
     }
 
+    public static function checkMatch($string1, $string2){
+        if (!strncmp($string1,$string2,strlen($string1))){
+            throw new Exception("Passwords must match!");
+        }
+
+        return true;
+    }
+
     public static function getDate($key)
     {
         $date = self::get($key);

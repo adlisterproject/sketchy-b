@@ -1,5 +1,6 @@
 <?php
 require_once '../utils/ads_login.php';
+
 class BaseModel {
 
     protected static $dbc;
