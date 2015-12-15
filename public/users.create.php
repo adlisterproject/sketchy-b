@@ -4,13 +4,22 @@ require_once '../utils/Input.php';
 require_once '../models/User.php';
 
 
-
-
 function pageController(){
 
 	$errors = array();
 
-	//this block checks to see if an error is going to be thrown
+	var_dump($_POST);
+	
+
+		//makes sure that passwords match
+		// try{
+		// 	Input::checkMatch($password, $passwordmatch);
+		// } catch(Exception $e){
+		// 	$error = $e->getMessage();
+		// 	array_push($errors, $error);
+		// }
+	if(!empty($_POST)){
+		// this block checks to see if an error is going to be thrown
 		try{
 			$username = Input::getString('username', 0, 50);
 		} catch (OutOfRangeException $e){
@@ -86,15 +95,7 @@ function pageController(){
 			$error = $e->getMessage();
 			array_push($errors, $error); 
 		} 
-
-		//makes sure that passwords match
-		try{
-			Input::checkMatch($password, $passwordmatch);
-		} catch(Exception $e){
-			$error = $e->getMessage();
-			array_push($errors, $error);
-		}
-	if(!empty($_POST)){
+		
 		
 
 		// add inputed data into database
@@ -111,9 +112,10 @@ function pageController(){
 				$user->email= $email;
 				$user->password = $password;
 				$user->save();
-				print_r($user);
 				$errors = array();
 			}
+
+
 		}
 	}
 
@@ -134,7 +136,7 @@ extract(pageController());
 	<h1>Create an Account!</h1>
 
 	<div class= "form_users">
-		<form>
+		<form method = "POST">
 			<input type="text" id="username" name="username" placeholder="Username">
 			<br>
 			<input type="text" id="email" name="email" placeholder="Email">
@@ -146,6 +148,21 @@ extract(pageController());
 			<input type = "submit" name = "submit" value = "Create">
 		</form>
 	</div>
+
+	<h4><?php 
+		if(Input::notEmpty('username')
+			&& Input::notEmpty('email')
+			&& Input::notEmpty('password')
+			&& Input::notEmpty('passwordmatch')):
+
+			if (!empty($errors)):
+				foreach ($errors as $error):
+					echo $error;?>
+				<br>
+				<?php endforeach;
+			endif;
+		endif;?>
+	</h4>
 
 
 
