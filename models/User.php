@@ -14,6 +14,14 @@ class User extends BaseModel{
 		$stmt->execute();
 	}
 
+	public static function checkMatch($string1, $string2){
+	    if (strcmp($string1, $string2) !==0){
+	        throw new Exception("Passwords must match!");
+	    }
+
+	    return true;
+	}
+
 	
 }
 

@@ -87,7 +87,7 @@ class Input
     }
 
     public static function checkMatch($string1, $string2){
-        if (!strncmp($string1,$string2,strlen($string1))){
+        if (strcmp($string1, $string2) !==0){
             throw new Exception("Passwords must match!");
         }
 
