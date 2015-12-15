@@ -32,6 +32,7 @@ extract(pageController());
 	<br>
 	<br>
 	<h1>Hello <?=$username?></h1>
+	<h4><a href = "ads.create.php">Create Ad</a></h4>
 	
 </body>
 
