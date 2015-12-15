@@ -7,17 +7,8 @@ require_once '../models/User.php';
 function pageController(){
 
 	$errors = array();
-
-	var_dump($_POST);
 	
 
-		//makes sure that passwords match
-		// try{
-		// 	Input::checkMatch($password, $passwordmatch);
-		// } catch(Exception $e){
-		// 	$error = $e->getMessage();
-		// 	array_push($errors, $error);
-		// }
 	if(!empty($_POST)){
 		// this block checks to see if an error is going to be thrown
 		try{
@@ -95,6 +86,14 @@ function pageController(){
 			$error = $e->getMessage();
 			array_push($errors, $error); 
 		} 
+
+		//makes sure that passwords match
+		try{
+			Input::checkMatch($password, $passwordmatch);
+		} catch(Exception $e){
+			$error = $e->getMessage();
+			array_push($errors, $error);
+		}
 		
 		
 
