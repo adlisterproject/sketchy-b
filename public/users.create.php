@@ -11,92 +11,107 @@ function pageController(){
 	$errors = array();
 
 	//this block checks to see if an error is going to be thrown
-	try{
-		$username = Input::getString('username', 0, 50);
-	} catch (OutOfRangeException $e){
-		$error = $e->getMessage();
-		array_push($errors, $error);
-	} catch (InvalidArgumentException $e){
-		$error = $e->getMessage();
-		array_push($errors, $error);
-	} catch (DomainException $e){
-		$error = $e->getMessage();
-		array_push($errors, $error);
-	} catch(LengthException $e){
-		$error = $e->getMessage();
-		array_push($errors, $error);
-	} catch(Exception $e){
-		$error = $e->getMessage();
-		array_push($errors, $error); 
-	} 
+		try{
+			$username = Input::getString('username', 0, 50);
+		} catch (OutOfRangeException $e){
+			$error = $e->getMessage();
+			array_push($errors, $error);
+		} catch (InvalidArgumentException $e){
+			$error = $e->getMessage();
+			array_push($errors, $error);
+		} catch (DomainException $e){
+			$error = $e->getMessage();
+			array_push($errors, $error);
+		} catch(LengthException $e){
+			$error = $e->getMessage();
+			array_push($errors, $error);
+		} catch(Exception $e){
+			$error = $e->getMessage();
+			array_push($errors, $error); 
+		} 
 
-	try{
-		$email = Input::getString('email', 0, 50);
-	} catch (OutOfRangeException $e){
-		$error = $e->getMessage();
-		array_push($errors, $error);
-	} catch (InvalidArgumentException $e){
-		$error = $e->getMessage();
-		array_push($errors, $error);
-	} catch (DomainException $e){
-		$error = $e->getMessage();
-		array_push($errors, $error);
-	} catch(LengthException $e){
-		$error = $e->getMessage();
-		array_push($errors, $error);
-	} catch(Exception $e){
-		$error = $e->getMessage();
-		array_push($errors, $error); 
-	}
+		try{
+			$email = Input::getString('email', 0, 50);
+		} catch (OutOfRangeException $e){
+			$error = $e->getMessage();
+			array_push($errors, $error);
+		} catch (InvalidArgumentException $e){
+			$error = $e->getMessage();
+			array_push($errors, $error);
+		} catch (DomainException $e){
+			$error = $e->getMessage();
+			array_push($errors, $error);
+		} catch(LengthException $e){
+			$error = $e->getMessage();
+			array_push($errors, $error);
+		} catch(Exception $e){
+			$error = $e->getMessage();
+			array_push($errors, $error); 
+		}
 
-	try{
-		$password = Input::getString('password', 0, 50);
-	} catch (OutOfRangeException $e){
-		$error = $e->getMessage();
-		array_push($errors, $error);
-	} catch (InvalidArgumentException $e){
-		$error = $e->getMessage();
-		array_push($errors, $error);
-	} catch (DomainException $e){
-		$error = $e->getMessage();
-		array_push($errors, $error);
-	} catch(LengthException $e){
-		$error = $e->getMessage();
-		array_push($errors, $error);
-	} catch(Exception $e){
-		$error = $e->getMessage();
-		array_push($errors, $error); 
-	} 
+		try{
+			$password = Input::getString('password', 0, 50);
+		} catch (OutOfRangeException $e){
+			$error = $e->getMessage();
+			array_push($errors, $error);
+		} catch (InvalidArgumentException $e){
+			$error = $e->getMessage();
+			array_push($errors, $error);
+		} catch (DomainException $e){
+			$error = $e->getMessage();
+			array_push($errors, $error);
+		} catch(LengthException $e){
+			$error = $e->getMessage();
+			array_push($errors, $error);
+		} catch(Exception $e){
+			$error = $e->getMessage();
+			array_push($errors, $error); 
+		} 
 
-	try{
-		$passwordmatch = Input::getString('passwordmatch', 0, 50);
-	} catch (OutOfRangeException $e){
-		$error = $e->getMessage();
-		array_push($errors, $error);
-	} catch (InvalidArgumentException $e){
-		$error = $e->getMessage();
-		array_push($errors, $error);
-	} catch (DomainException $e){
-		$error = $e->getMessage();
-		array_push($errors, $error);
-	} catch(LengthException $e){
-		$error = $e->getMessage();
-		array_push($errors, $error);
-	} catch(Exception $e){
-		$error = $e->getMessage();
-		array_push($errors, $error); 
-	} 
+		try{
+			$passwordmatch = Input::getString('passwordmatch', 0, 50);
+		} catch (OutOfRangeException $e){
+			$error = $e->getMessage();
+			array_push($errors, $error);
+		} catch (InvalidArgumentException $e){
+			$error = $e->getMessage();
+			array_push($errors, $error);
+		} catch (DomainException $e){
+			$error = $e->getMessage();
+			array_push($errors, $error);
+		} catch(LengthException $e){
+			$error = $e->getMessage();
+			array_push($errors, $error);
+		} catch(Exception $e){
+			$error = $e->getMessage();
+			array_push($errors, $error); 
+		} 
 
+		//makes sure that passwords match
+		try{
+			Input::checkMatch($password, $passwordmatch);
+		} catch(Exception $e){
+			$error = $e->getMessage();
+			array_push($errors, $error);
+		}
 	if(!empty($_POST)){
+		
+
 		// add inputed data into database
 		if (Input::notEmpty('username')
-			&& Input::notEmpty('password')){
+			&& Input::notEmpty('password')
+			&& Input::notEmpty('passwordmatch')
+			&& Input::notEmpty('email')){
 
-			// will continue if there are no errors and if the password matches the other password
-			if(empty($errors) && (strncmp($password,$passwordmatch,strlen($password)))){
+			////does not save any user info yet
+			if(empty($errors)){
 				// using models to save information	
 				$user = new User();
+				$user->username = $username;
+				$user->email= $email;
+				$user->password = $password;
 				$user->save();
+				print_r($user);
 				$errors = array();
 			}
 		}
@@ -131,6 +146,8 @@ extract(pageController());
 			<input type = "submit" name = "submit" value = "Create">
 		</form>
 	</div>
+
+
 
 <?php require_once('../views/footer.php') ?>
 
