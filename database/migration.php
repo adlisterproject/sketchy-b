@@ -27,4 +27,5 @@ $query = "CREATE TABLE users (
 	PRIMARY KEY (id)
 	)";
 $dbc->exec($query);
-echo $dbc->getAttribute(PDO::ATTR_CONNECTION_STATUS) . "\n";
+
+

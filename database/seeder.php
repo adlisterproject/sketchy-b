@@ -8,7 +8,10 @@ $stmt = $dbc->prepare($query);
 
 $ads_list = [
 
-	['item_name' => 'Nintendo 64', 'price' => '75.00', 'description' => 'An old nintendo 64.', 'contact' => 'alex@alex.gmail']
+	['item_name' => 'Nintendo 64', 'price' => '75.00', 'description' => 'An old nintendo 64.', 'contact' => 'alex@alex.gmail'],
+	['item_name' => 'Playstation', 'price' => '64.00', 'description' => 'An old Playstation.', 'contact' => 'alex@gmail.com'],
+	['item_name' => 'Gameboy', 'price' => '15.00', 'description' => 'An old Gameboy.', 'contact' => 'danny@gmail.com'],
+	['item_name' => 'Xbox', 'price' => '100.00', 'description' => 'An old xbox.', 'contact' => 'ryan@gmail.com']
 
 ];
 
