@@ -1,3 +1,7 @@
+/*keeps body from being hidden*/
+body { 
+    padding-top: 65px; 
+}
 /*NAVBAR*/
 .navbar{
 	margin-bottom:300px;
