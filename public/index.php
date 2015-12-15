@@ -8,15 +8,10 @@
 
 <body>
 	<!-- placeholders until we style with css -->
-	<br>
-	<br>
-	<br>
-	<br>
 	<h1>Welcome to Sketchy-B!</h1>
 	<div id = "user_create">
 		<a href="users.create.php">Create a Profile!</a>
 	</div>
-
 
 	
 </body>
