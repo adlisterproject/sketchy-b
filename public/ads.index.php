@@ -1,10 +1,9 @@
 <?php
 
-require '../database/seeder.php'
-
-
-
-
+require '../models/Ad.php';
+// require '../database/seeder.php';
+// require '../public/ads.create.php';
+$ads_list = Ad::all();
 ?>
 
 
