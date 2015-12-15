@@ -1,22 +1,10 @@
 <?php
 require_once '../utils/db_connect.php';
 require_once '../utils/Input.php';
-require_once '../models/Ad.php';
+require_once '../models/User.php';
 
-function createUser($dbc, $username, $password){
-	$create = "CREATE USER ':username'@'localhost' IDENTIFIED BY ':password'";
-	$stmt = $dbc->prepare($create);
-	$stmt->bindValue(':username', $username, PDO::PARAM_STR);
-	$stmt->bindValue(':password', $password, PDO::PARAM_STR);
-	$stmt->execute();
-}
 
-function grantPriviledge($dbc, $username){
-	$grant = "GRANT SELECT, INSERT, UPDATE, DELETE ON adlister. ". static::$table ." TO ':username'@'localhost'";
-	$stmt = $dbc->prepare($grant);
-	$stmt->bindValue(':username', $username, PDO::PARAM_STR);
-	$stmt->execute();
-}
+
 
 function pageController(){
 
@@ -41,6 +29,25 @@ function pageController(){
 		$error = $e->getMessage();
 		array_push($errors, $error); 
 	} 
+
+	try{
+		$email = Input::getString('email', 0, 50);
+	} catch (OutOfRangeException $e){
+		$error = $e->getMessage();
+		array_push($errors, $error);
+	} catch (InvalidArgumentException $e){
+		$error = $e->getMessage();
+		array_push($errors, $error);
+	} catch (DomainException $e){
+		$error = $e->getMessage();
+		array_push($errors, $error);
+	} catch(LengthException $e){
+		$error = $e->getMessage();
+		array_push($errors, $error);
+	} catch(Exception $e){
+		$error = $e->getMessage();
+		array_push($errors, $error); 
+	}
 
 	try{
 		$password = Input::getString('password', 0, 50);
@@ -83,12 +90,13 @@ function pageController(){
 	if(!empty($_POST)){
 		// add inputed data into database
 		if (Input::notEmpty('username')
-			&& Input::notEmpty('parkname')){
+			&& Input::notEmpty('password')){
 
 			// will continue if there are no errors and if the password matches the other password
 			if(empty($errors) && (strncmp($password,$passwordmatch,strlen($password)))){
-				createUser($dbc, $username, $password);
-				grantPriviledge($dbc, $username);
+				// using models to save information	
+				$user = new User();
+				$user->save();
 				$errors = array();
 			}
 		}
