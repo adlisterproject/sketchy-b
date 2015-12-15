@@ -17,7 +17,6 @@
 		<a href="users.create.php">Create a Profile!</a>
 	</div>
 
-
 	
 </body>
 

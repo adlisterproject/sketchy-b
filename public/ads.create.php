@@ -1,4 +1,24 @@
 <?php
+require_once '../utils/Auth.php';
+
+function pageController(){
+
+	session_start();
+
+	if (!Auth::check()){
+		header('Location: auth.login.php');
+		exit();
+	}
+
+	$username = Auth::user();
+
+	return array(
+		'username' => $username
+		);
+
+}
+
+extract(pageController());
 ?>
 
 <!DOCTYPE html>
