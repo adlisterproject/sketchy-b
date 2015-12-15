@@ -1,7 +1,7 @@
 <?php
 require_once '../utils/db_connect.php';
 require_once '../utils/Input.php';
-
+require_once '../models/Ad.php';
 
 function createUser($dbc, $username, $password){
 	$create = "CREATE USER ':username'@'localhost' IDENTIFIED BY ':password'";
@@ -12,7 +12,7 @@ function createUser($dbc, $username, $password){
 }
 
 function grantPriviledge($dbc, $username){
-	$grant = "GRANT SELECT, INSERT, UPDATE, DELETE ON adlister.ads_list TO ':username'@'localhost'";
+	$grant = "GRANT SELECT, INSERT, UPDATE, DELETE ON adlister. ". static::$table ." TO ':username'@'localhost'";
 	$stmt = $dbc->prepare($grant);
 	$stmt->bindValue(':username', $username, PDO::PARAM_STR);
 	$stmt->execute();
