@@ -1,4 +1,5 @@
 <?php
+
 require 'migration.php';
 
 $query = "INSERT INTO ads_list (item_name, price, description, contact) 
