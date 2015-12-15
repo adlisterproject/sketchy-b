@@ -2,15 +2,16 @@
 
 require_once '../utils/Auth.php';
 require_once '../utils/Input.php';
+require_once '../models/Ad.php';
 
 function insertAds($dbc){
 
-	$insert = "INSERT INTO ads_list (item_name, price, description, contact)
+	$insert = "INSERT INTO " . static::$table . " (item_name, price, description, contact)
 	VALUES (:item_name, :price, :description, :contact)";
-	$stmt->bindValue(':item_name', $ad['item_name'], PDO::PARAM_STR);
-	$stmt->bindValue(':price', $ad['price'], PDO::PARAM_STR);
-	$stmt->bindValue(':description', $ad['description'], PDO::PARAM_STR);
-	$stmt->bindValue(':contact', $ad['contact'], PDO::PARAM_STR);
+	$stmt->bindValue(':item_name', $this->attributes['item_name'], PDO::PARAM_STR);
+	$stmt->bindValue(':price', $this->attributes['price'], PDO::PARAM_STR);
+	$stmt->bindValue(':description', $this->attributes['description'], PDO::PARAM_STR);
+	$stmt->bindValue(':contact', $this->attributes['contact'], PDO::PARAM_STR);
 	$stmt->execute();
 }
 

@@ -23,14 +23,15 @@ foreach ($ads_list as $ad) {
 	$stmt->execute();
 }
 
-$query = "INSERT INTO users (email, password) VALUES (:email, :password)";
+$query = "INSERT INTO users (username, email, password) VALUES (:username, :email, :password)";
 $stmt = $dbc->prepare($query);
 
 $users= [
-	['email' => 'randy@randy.com', 'password' => 'tell34324']
+	['username' => 'randy', 'email' => 'randy@randy.com', 'password' => 'tell34324']
 ];
 
 foreach ($users as $user){
+	$stmt->bindValue(':username', $user['username'], PDO::PARAM_STR);
 	$stmt->bindValue(':email', $user['email'], PDO::PARAM_STR);
 	$stmt->bindValue(':password', $user['password'], PDO::PARAM_STR);
 	$stmt->execute();
