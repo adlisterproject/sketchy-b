@@ -48,7 +48,7 @@ extract(pageController());
             <div class="caption">
             	<!-- make this the price class? -->
                 <h4 class="pull-right"> <?= $ad['price'] ?> </h4>
-                <h4><a href="ads.show.php"> <?= $ad['item_name']?> </a>
+                <h4><a href="ads.show.php?id=<?=$ad['id']?>"> <?= $ad['item_name']?> </a>
                 </h4>
                 <!-- make a description class here? -->
                 <!-- user can only edit ad if they are logged in and it is theirs -->
