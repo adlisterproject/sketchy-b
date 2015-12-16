@@ -1,6 +1,6 @@
 <?php
 require_once '../utils/Auth.php';
-
+require_once '../utils/Input.php';
 function pageController(){
 
 	session_start();
@@ -12,28 +12,95 @@ function pageController(){
 
 	$username = Auth::user();
 
+	$username = Auth::user();
 
-	if(!empty($_POST)){
-		if (Input::notEmpty('username')
-			&& Input::notEmpty('password')
-			&& Input::notEmpty('passwordmatch')
-			&& Input::notEmpty('email')){
+	$user = User::findUserByUsername($username);
+	$email = $user->attributes['email'];
+	$password = $user->attributes['password'];
 
-			////does not save any user info yet
-			if(empty($errors)){
-				// using models to save information	
-				$user = new User();
-				$user->username = $username;
-				$user->email= $email;
-				$user->password = $password;
-				$user->save();
-				$errors = array();
+	$errors = array();
+
+	if (!empty($_POST)){
+
+		if (Input::has('email')){
+			try {
+				$email = Input::getString('email');
+			} catch (OutOfRangeException $e){
+				$error = $e->getMessage();
+				array_push($errors, $error);
+			} catch (InvalidArgumentException $e){
+				$error = $e->getMessage();
+				array_push($errors, $error);
+			} catch (DomainException $e){
+				$error = $e->getMessage();
+				array_push($errors, $error);
+			} catch(LengthException $e){
+				$error = $e->getMessage();
+				array_push($errors, $error);
+			} catch(Exception $e){
+				$error = $e->getMessage();
+				array_push($errors, $error); 
+			} 
+		}
+		if (Input::has('passwordmatch')&& Input::has('password')){
+			try {
+				$password = Input::getString('password');
+			} catch (OutOfRangeException $e){
+				$error = $e->getMessage();
+				array_push($errors, $error);
+			} catch (InvalidArgumentException $e){
+				$error = $e->getMessage();
+				array_push($errors, $error);
+			} catch (DomainException $e){
+				$error = $e->getMessage();
+				array_push($errors, $error);
+			} catch(LengthException $e){
+				$error = $e->getMessage();
+				array_push($errors, $error);
+			} catch(Exception $e){
+				$error = $e->getMessage();
+				array_push($errors, $error); 
+			} 
+
+			try {
+				$passwordmatch = Input::getString('passwordmatch');
+			} catch (OutOfRangeException $e){
+				$error = $e->getMessage();
+				array_push($errors, $error);
+			} catch (InvalidArgumentException $e){
+				$error = $e->getMessage();
+				array_push($errors, $error);
+			} catch (DomainException $e){
+				$error = $e->getMessage();
+				array_push($errors, $error);
+			} catch(LengthException $e){
+				$error = $e->getMessage();
+				array_push($errors, $error);
+			} catch(Exception $e){
+				$error = $e->getMessage();
+				array_push($errors, $error); 
+			} 
+
+			try{
+				Input::checkMatch($password, $passwordmatch);
+			} catch(Exception $e){
+				$error = $e->getMessage();
+				array_push($errors, $error);
 			}
+		}
+		
+		if (empty($errors)){
+			$user->attributes['username'] = $username;	
+			$user->attributes['email'] = $email;
+			$user->attributes['password'] = $password;
+			$user->save();
 		}
 	}
 
 	return array(
-		'username' => $username
+		'username' => $username,
+		'email' => $email,
+		'password' => $password
 		);
 
 }
@@ -47,8 +114,46 @@ extract(pageController());
 <?php require_once('../views/navbar.php') ?>
 
 <body>
+	<h1>Hello <?=$username?></h1>
+
+	<form method = "POST">
+		<a id = "emailbtn"><label>Email: <?=$email?></label></a>
+		<input class = "hidden" type="text" id="email" name="email" value="<?=$email?>">
+		<br>
+		<!-- hides passwords unless change password button is clicked -->
+		<button class = "btn-default" id = "passwordbtn">Change Password</button>
+		<br>
+		<input class = "hidden" type="password" id="password" name="password" placeholder = "Password">
+		<br>
+		<input class = "hidden" type="password" id="passwordmatch" name="passwordmatch" placeholder="Confirm Password"> 
+		<br>
+		<input type = "submit" name = "submit" value = "Save">
+		<button class = "btn-default"><a href="users.show.php">Cancel</a></button>
+	</form>
 	
 </body>
 
 <?php require_once('../views/footer.php') ?>
+
+<script type="text/javascript">
+	$("#passwordbtn").click(function(e){
+		(e).preventDefault();
+		$("#password").toggleClass("hidden");
+		$("#passwordmatch").toggleClass("hidden");
+	});
+	$("#emailbtn").click(function(e){
+		(e).preventDefault();
+		$("#email").toggleClass("hidden");
+	});
+
+
+</script>
 </html>
+
+
+
+
+
+
+
+

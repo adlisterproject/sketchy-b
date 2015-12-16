@@ -12,6 +12,8 @@ function pageController(){
 
 	$username = Auth::user();
 
+	
+
 	return array(
 		'username' => $username
 		);
@@ -31,6 +33,7 @@ extract(pageController());
 
 	<h1>Hello <?=$username?></h1>
 	<h4><a href = "ads.create.php">Create Ad</a></h4>
+	<h4><a href = "users.edit.php">Edit Profile</a></h4>
 	
 </body>
 
