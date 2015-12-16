@@ -1,11 +1,15 @@
 <?php
 
 require_once '../utils/Input.php';
-require_once '../models/User.php';
+require_once '../utils/Logger.php'; 
+require_once '../utils/Auth.php'; 
 
 
 function pageController(){
 
+	session_start();
+
+	
 	$errors = array();
 	
 
@@ -113,9 +117,17 @@ function pageController(){
 				$user->save();
 				$errors = array();
 
-				//after user is logged in takes them to profile page
-				header('Location: users.show.php');
-				exit();
+				$log = new Log();
+
+				if (Auth::attempt($username, $password)){
+					$log->info('User {$username} logged in.');
+					header('Location: users.show.php');
+					exit();
+				} else {
+					$log->error('User {$username} failed to log in!');
+					$message = 'Please input the proper username and password.';
+				}
+
 			}
 
 

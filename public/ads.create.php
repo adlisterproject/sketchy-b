@@ -110,6 +110,7 @@ function pageController(){
 				$ad->contact = $contact;
 				$ad->user_id = $user->attributes['id'];
 				$ad->save();
+
 			}
 		}
 	
