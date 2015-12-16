@@ -21,7 +21,6 @@ $ads_list = Ad::all();
                 </h4>
                 <!-- make a description class here? -->
                 <!-- user can only edit ad if they are logged in and it is theirs -->
-                <p> <?= $ad['description'] ?> <a href="ads.edit.php">Edit Ad</a></p>
             </div>
         </div>
     </div>

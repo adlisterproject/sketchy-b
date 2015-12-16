@@ -52,7 +52,13 @@ extract(pageController());
                 </h4>
                 <!-- make a description class here? -->
                 <!-- user can only edit ad if they are logged in and it is theirs -->
-                <p> <?= $ad['description'] ?> <a href="ads.edit.php">Edit Ad</a></p>
+                <p> <?= $ad['description'] ?> 
+                	<form method="GET" action="ads.edit.php">
+                		<!-- could use a query string with an anchor tag -->
+                		<input type="hidden" name="id" value="<?= $ad['id'] ?>">
+                		<input type="submit" value="Edit">
+                	</form>
+                </p>
             </div>
         </div>
     </div>
