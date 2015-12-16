@@ -1,14 +1,27 @@
 <?php
-
+require_once '../models/User.php';
 
 class Auth
 {
-	public static $username = 'guest';
+	public static $username;
+	// public static $username = 'guest';
 	//password
-	public static $password = '$2y$10$SLjwBwdOVvnMgWxvTI4Gb.YVcmDlPTpQystHMO2Kfyi/DS8rgA0Fm';
+	public static $password;
+	// public static $password = '$2y$10$SLjwBwdOVvnMgWxvTI4Gb.YVcmDlPTpQystHMO2Kfyi/DS8rgA0Fm';
+
+
+	private static function setStatic($username)
+	{
+		$user = User::findUserByUsername($username);
+		//the above function returns an instance of the user object
+		self::$username = $user->attributes['username'];
+		self::$password = $user->attributes['password'];
+	}
 
 	public static function attempt($username, $password)
 	{
+        self::setStatic($username);
+
 		if (password_verify($password, self::$password) && ($username == self::$username)){
 			$_SESSION['LOGGED_IN_USER'] = $username;
 			return true;
