@@ -1,5 +1,5 @@
 <?php
-require_once '../utils/db_connect.php';
+
 require_once '../utils/Input.php';
 require_once '../models/User.php';
 

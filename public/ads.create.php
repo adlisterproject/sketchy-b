@@ -3,121 +3,131 @@
 require_once '../utils/Auth.php';
 require_once '../utils/Input.php';
 require_once '../models/Ad.php';
+require_once '../models/User.php';
 
-$errors = array();
+function pageController(){
+
+	session_start();
+
+	if (!Auth::check()){
+		header('Location: auth.login.php');
+		exit();
+	}
+
+	$username = Auth::user();
+	$user = User::findUserByUsername($username);
+	var_dump($user);
+	$errors = array();
 
 
-if(!empty($_POST)){
+	if(!empty($_POST)){
 
-	// try{
+		try{
+		$item_name = Input::getString('item_name', 0, 50);
+		} catch (OutOfRangeException $e){
+			$error = $e->getMessage();
+			array_push($errors, $error);
+		} catch (InvalidArgumentException $e){
+			$error = $e->getMessage();
+			array_push($errors, $error);
+		} catch (DomainException $e){
+			$error = $e->getMessage();
+			array_push($errors, $error);
+		} catch(LengthException $e){
+			$error = $e->getMessage();
+			array_push($errors, $error);
+		} catch(Exception $e){
+			$error = $e->getMessage();
+			array_push($errors, $error); 
+		} 
+
+		try{
+			$price = Input::getNumber('price');
+		} catch (OutOfRangeException $e){
+			$error = $e->getMessage();
+			array_push($errors, $error);
+		} catch (InvalidArgumentException $e){
+			$error = $e->getMessage();
+			array_push($errors, $error);
+		} catch (DomainException $e){
+			$error = $e->getMessage();
+			array_push($errors, $error);
+		} catch(RangeException $e){
+			$error = $e->getMessage();
+			array_push($errors, $error);
+		} catch (Exception $e){
+			array_push($errors, $e->getMessage());
+		}
+
+		try{
+		$description= Input::getString('description', 0, 50);
+		} catch (OutOfRangeException $e){
+			$error = $e->getMessage();
+			array_push($errors, $error);
+		} catch (InvalidArgumentException $e){
+			$error = $e->getMessage();
+			array_push($errors, $error);
+		} catch (DomainException $e){
+			$error = $e->getMessage();
+			array_push($errors, $error);
+		} catch(LengthException $e){
+			$error = $e->getMessage();
+			array_push($errors, $error);
+		} catch(Exception $e){
+			$error = $e->getMessage();
+			array_push($errors, $error); 
+		} 
+
+		try{
+		$contact = Input::getString('contact', 0, 50);
+		} catch (OutOfRangeException $e){
+			$error = $e->getMessage();
+			array_push($errors, $error);
+		} catch (InvalidArgumentException $e){
+			$error = $e->getMessage();
+			array_push($errors, $error);
+		} catch (DomainException $e){
+			$error = $e->getMessage();
+			array_push($errors, $error);
+		} catch(LengthException $e){
+			$error = $e->getMessage();
+			array_push($errors, $error);
+		} catch(Exception $e){
+			$error = $e->getMessage();
+			array_push($errors, $error); 
+		} 
+
 	// $item_name = Input::getString('item_name');
-	// } catch(OutOfRangeException $e){
-	// 	$error=$e->getMessage();
-	// 	array_push($errors, $error);
-	// } catch(InvalidArgumentException $e){
-	// 	$error=$e->getMessage();
-	// 	array_push($errprs, $error);
-	// } catch(DomainException $e){
-	// 	$error=$e->getMessage();
-	// 	array_push($errors, $error);
-	// } catch(LengthException $e){
-	// 	$error=$e->getMessage();
-	// 	array_push($errors, $error);
-	// }
-
-	// try{
-	// $price = Input::getString('price');
-	// } catch(OutofRangeException $e){
-	// 	$error=$e->getMessage();
-	// 	array_push($errors, $error);
-	// } catch(InvalidArgumentException $e){
-	// 	$error=$e->getMessage();
-	// 	array_push($errors, $error);
-	// } catch(DomainException $e){
-	// 	$error=$e->getMessage();
-	// 	array_push($errors, $error);
-	// } catch(LengthException $e){
-	// 	$error=$e->getMessage();
-	// 	array_push($errors, $error);
-	// }
-
-	// try{
+	// $price = Input::getNumber('price');
 	// $description= Input::getString('description');
-	// } catch(OutOfRangeException $e){
-	// 	$error=$e->getMessage();
-	// 	array_push($errors, $error);
-	// } catch(InvalidArgumentException $e){
-	// 	$error=$e->getMessage();
-	// 	array_push($errors, $error);
-	// } catch(DomainException $e){
-	// 	$error=$e->getMessage();
-	// 	array_push($errors, $error);
-	// } catch(LengthException $e){
-	// 	$error=$e->getMessage();
-	// 	array_push($errors, $error);
-	// }
-
-	// try{
 	// $contact = Input::getString('contact');
-	// } catch(OutofRangeException $e){
-	// 	$error=$e->getMessage();
-	// 	array_push($errors, $error);
-	// } catch(InvalidArgumentException $e){
-	// 	$error=$e->getMessage();
-	// 	array_push($errors, $error);
-	// } catch(DomainException $e){
-	// 	$error=$e->getMessage();
-	// 	array_push($errors, $error);
-	// } catch(LengthException $e){
-	// 	$error=$e->getMessage();
-	// 	array_push($errors, $error);
-	// }
-
-$item_name = Input::getString('item_name');
-$price = Input::getNumber('price');
-$description= Input::getString('description');
-$contact = Input::getString('contact');
 
 
-	if(Input::notEmpty('item_name') 
-		&& Input::notEmpty('price') 
-		&& Input::notEmpty('description') 
-		&& Input::notEmpty('contact')){
+		if(Input::notEmpty('item_name') 
+			&& Input::notEmpty('price') 
+			&& Input::notEmpty('description') 
+			&& Input::notEmpty('contact')){
 
-		if(empty($errors)){
-			$ad = new Ad();
-			$ad->item_name = $item_name;
-			$ad->price = $price;
-			$ad->description = $description;
-			$ad->contact = $contact;
-			$ad->save();
+			if(empty($errors)){
+				$ad = new Ad();
+				$ad->item_name = $item_name;
+				$ad->price = $price;
+				$ad->description = $description;
+				$ad->contact = $contact;
+				$ad->user_id = $user->attributes['id'];
+				$ad->save();
+			}
 		}
 	
 	}
-	
+
+	return array(
+		'username' => $username
+		);
+
 }
 
-
-
-
-// function pageController(){
-
-// 	session_start();
-
-// 	if (!Auth::check()){
-// 		header('Location: auth.login.php');
-// 		exit();
-// 	}
-
-// 	$username = Auth::user();
-
-// 	return array(
-// 		'username' => $username
-// 		);
-
-// }
-
-// extract(pageController());
+extract(pageController());
 ?>
 
 <!DOCTYPE html>
