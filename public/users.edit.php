@@ -1,7 +1,7 @@
 <?php
 require_once '../utils/Auth.php';
 require_once '../utils/Input.php';
-require_once '../models/User.php';
+
 function pageController(){
 
 	session_start();
@@ -12,9 +12,7 @@ function pageController(){
 	}
 
 	$username = Auth::user();
-	$user = User::findUserByUsername($username);
-	var_dump(User::findUserByUsername($username));
-	
+	$user = User::findUserByUsername($username);	
 	$email = $user->attributes['email'];
 	$password = $user->attributes['password'];
 
