@@ -2,22 +2,33 @@
 
 require_once '../utils/Input.php';
 require_once '../models/Ad.php';
+require_once '../utils/Auth.php';
+
 function pageController(){
+    session_start();
 
     if (!Input::has('id')){
         header('Location: ads.index.php');
         exit();
     }
 
+    $username = Auth::user();
+    $user = User::findUserByUsername($username);
+    $userid = $user->attributes['id'];
+
     $adid = Input::get('id');
     $ad = Ad::find($adid);
 
+    $aduserid = $ad->attributes['user_id'];
     $item_name = $ad->attributes['item_name'];
     $price = $ad->attributes['price'];
     $description = $ad->attributes['description'];
     $contact = $ad->attributes['contact'];
 
     return array(
+        'adid' => $adid,
+        'userid' => $userid,
+        'aduserid' => $aduserid,
         'item_name' => $item_name,
         'price' => $price,
         'description' => $description,
@@ -53,6 +64,14 @@ extract(pageController());
             <h2>Description</h2>
             <h3><?=$description?></h3>
             <h3>$<?=$price?></h3>
+            <?php 
+            if (Auth::check()):
+                if ($userid==$aduserid):
+                ?>
+                    <label><a href="ads.edit.php?id=<?=$adid?>">Edit</a></label>
+                <?php endif;
+            endif;
+            ?>
         </div>
     </div>
 
