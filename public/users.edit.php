@@ -12,8 +12,6 @@ function pageController(){
 
 	$username = Auth::user();
 
-	$username = Auth::user();
-
 	$user = User::findUserByUsername($username);
 	$email = $user->attributes['email'];
 	$password = $user->attributes['password'];
@@ -22,7 +20,7 @@ function pageController(){
 
 	if (!empty($_POST)){
 
-		if (Input::has('email')){
+		if (Input::notEmpty('email')){
 			try {
 				$email = Input::getString('email');
 			} catch (OutOfRangeException $e){
@@ -42,7 +40,7 @@ function pageController(){
 				array_push($errors, $error); 
 			} 
 		}
-		if (Input::has('passwordmatch')&& Input::has('password')){
+		if (Input::notEmpty('password')){
 			try {
 				$password = Input::getString('password');
 			} catch (OutOfRangeException $e){
@@ -61,7 +59,9 @@ function pageController(){
 				$error = $e->getMessage();
 				array_push($errors, $error); 
 			} 
+		}
 
+		if (Input::notEmpty('passwordmatch')){
 			try {
 				$passwordmatch = Input::getString('passwordmatch');
 			} catch (OutOfRangeException $e){
@@ -80,7 +80,9 @@ function pageController(){
 				$error = $e->getMessage();
 				array_push($errors, $error); 
 			} 
+		}
 
+		if (Input::notEmpty('passwordmatch') && Input::notEmpty('password')){
 			try{
 				Input::checkMatch($password, $passwordmatch);
 			} catch(Exception $e){
