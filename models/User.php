@@ -10,7 +10,8 @@ class User extends BaseModel{
 		$stmt = self::$dbc->prepare($create);
 		$stmt->bindValue(':username', $this->attributes['username'], PDO::PARAM_STR);
 		$stmt->bindValue(':email', $this->attributes['email'], PDO::PARAM_STR);
-		$stmt->bindValue(':password', $this->attributes['password'], PDO::PARAM_STR);
+		//password hashbrowns for security
+		$stmt->bindValue(':password', password_hash($this->attributes['password'], PASSWORD_DEFAULT), PDO::PARAM_STR);
 		$stmt->execute();
 	}
 
@@ -21,6 +22,31 @@ class User extends BaseModel{
 
 	    return true;
 	}
+
+	 public static function findUserByUserName($username)
+    {
+        // Get connection to the database
+        self::dbConnect();
+
+        // @TODO: Create select statement using prepared statements
+        $query = "SELECT * FROM ". static::$table . " WHERE username = :username";
+        $stmt = self::$dbc->prepare($query);
+        $stmt->bindValue(':username', $username, PDO::PARAM_INT);
+        $stmt->execute();
+        
+        // @TODO: Store the resultset in a variable named $result
+        $result = $stmt->fetch(PDO::FETCH_ASSOC);
+
+        // The following code will set the attributes on the calling object based on the result variable's contents
+
+        $instance = null;
+        if ($result)
+        {
+            $instance = new static;
+            $instance->attributes = $result;
+        }
+        return $instance;
+    }
 
 	
 }

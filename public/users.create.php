@@ -112,6 +112,10 @@ function pageController(){
 				$user->password = $password;
 				$user->save();
 				$errors = array();
+
+				//after user is logged in takes them to profile page
+				header('Location: users.show.php');
+				exit();
 			}
 
 

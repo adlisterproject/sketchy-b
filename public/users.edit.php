@@ -12,6 +12,26 @@ function pageController(){
 
 	$username = Auth::user();
 
+
+	if(!empty($_POST)){
+		if (Input::notEmpty('username')
+			&& Input::notEmpty('password')
+			&& Input::notEmpty('passwordmatch')
+			&& Input::notEmpty('email')){
+
+			////does not save any user info yet
+			if(empty($errors)){
+				// using models to save information	
+				$user = new User();
+				$user->username = $username;
+				$user->email= $email;
+				$user->password = $password;
+				$user->save();
+				$errors = array();
+			}
+		}
+	}
+
 	return array(
 		'username' => $username
 		);
