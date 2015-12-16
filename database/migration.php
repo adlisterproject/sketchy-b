@@ -12,7 +12,9 @@ $query = "CREATE TABLE ads_list (
 	price double NOT NULL,
 	description varchar(500) NOT NULL,
 	contact varchar(200) NOT NULL,
-	PRIMARY KEY (id)
+	user_id INT UNSIGNED DEFAULT NULL,
+	PRIMARY KEY (id),
+	FOREIGN KEY (user_id) REFERENCES users (id)
 	)";
 
 $dbc->exec($query);
@@ -25,7 +27,8 @@ $query = "CREATE TABLE users (
 	username varchar(100) NOT NULL,
 	email varchar(100) NOT NULL,
 	password varchar(100) NOT NULL,
-	PRIMARY KEY (id)
+	PRIMARY KEY (id),
+	UNIQUE (username, email)
 	)";
 $dbc->exec($query);
 

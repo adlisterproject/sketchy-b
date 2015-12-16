@@ -4,39 +4,101 @@ require_once '../utils/Auth.php';
 require_once '../utils/Input.php';
 require_once '../models/Ad.php';
 
+$errors = array();
 
-
-	// $insert = "INSERT INTO ads_list (item_name, price, description, contact)
-	// VALUES (:item_name, :price, :description, :contact)";
-	// $stmt->bindValue(':item_name', $ad['item_name'], PDO::PARAM_STR);
-	// $stmt->bindValue(':price', $ad['price'], PDO::PARAM_STR);
-	// $stmt->bindValue(':description', $ad['description'], PDO::PARAM_STR);
-	// $stmt->bindValue(':contact', $ad['contact'], PDO::PARAM_STR);
-	// $stmt->execute();
-
-	// $insert = "INSERT INTO " . static::$table . " (item_name, price, description, contact)
-	// VALUES (:item_name, :price, :description, :contact)";
-	// $stmt = self::$dbc->prepare($insert);
-	// $stmt->bindValue(':item_name', $this->attributes['item_name'], PDO::PARAM_STR);
-	// $stmt->bindValue(':price', $this->attributes['price'], PDO::PARAM_STR);
-	// $stmt->bindValue(':description', $this->attributes['description'], PDO::PARAM_STR);
-	// $stmt->bindValue(':contact', $this->attributes['contact'], PDO::PARAM_STR);
-	// $stmt->execute();
 
 if(!empty($_POST)){
-	if(
-	Input::notEmpty('item_name') &&
-	Input::notEmpty('price') &&
-	Input::notEmpty('description') &&
-	Input::notEmpty('contact')){
-	$ad= new Ad();
-	$ad->item_name= $item_name;
-	$ad->price= $price;
-	$ad->description= $description;
-	$ad->contact= $contact;
-	$ad->save();
+
+	// try{
+	// $item_name = Input::getString('item_name');
+	// } catch(OutOfRangeException $e){
+	// 	$error=$e->getMessage();
+	// 	array_push($errors, $error);
+	// } catch(InvalidArgumentException $e){
+	// 	$error=$e->getMessage();
+	// 	array_push($errprs, $error);
+	// } catch(DomainException $e){
+	// 	$error=$e->getMessage();
+	// 	array_push($errors, $error);
+	// } catch(LengthException $e){
+	// 	$error=$e->getMessage();
+	// 	array_push($errors, $error);
+	// }
+
+	// try{
+	// $price = Input::getString('price');
+	// } catch(OutofRangeException $e){
+	// 	$error=$e->getMessage();
+	// 	array_push($errors, $error);
+	// } catch(InvalidArgumentException $e){
+	// 	$error=$e->getMessage();
+	// 	array_push($errors, $error);
+	// } catch(DomainException $e){
+	// 	$error=$e->getMessage();
+	// 	array_push($errors, $error);
+	// } catch(LengthException $e){
+	// 	$error=$e->getMessage();
+	// 	array_push($errors, $error);
+	// }
+
+	// try{
+	// $description= Input::getString('description');
+	// } catch(OutOfRangeException $e){
+	// 	$error=$e->getMessage();
+	// 	array_push($errors, $error);
+	// } catch(InvalidArgumentException $e){
+	// 	$error=$e->getMessage();
+	// 	array_push($errors, $error);
+	// } catch(DomainException $e){
+	// 	$error=$e->getMessage();
+	// 	array_push($errors, $error);
+	// } catch(LengthException $e){
+	// 	$error=$e->getMessage();
+	// 	array_push($errors, $error);
+	// }
+
+	// try{
+	// $contact = Input::getString('contact');
+	// } catch(OutofRangeException $e){
+	// 	$error=$e->getMessage();
+	// 	array_push($errors, $error);
+	// } catch(InvalidArgumentException $e){
+	// 	$error=$e->getMessage();
+	// 	array_push($errors, $error);
+	// } catch(DomainException $e){
+	// 	$error=$e->getMessage();
+	// 	array_push($errors, $error);
+	// } catch(LengthException $e){
+	// 	$error=$e->getMessage();
+	// 	array_push($errors, $error);
+	// }
+
+$item_name = Input::getString('item_name');
+$price = Input::getNumber('price');
+$description= Input::getString('description');
+$contact = Input::getString('contact');
+
+
+	if(Input::notEmpty('item_name') 
+		&& Input::notEmpty('price') 
+		&& Input::notEmpty('description') 
+		&& Input::notEmpty('contact')){
+
+		if(empty($errors)){
+			$ad = new Ad();
+			$ad->item_name = $item_name;
+			$ad->price = $price;
+			$ad->description = $description;
+			$ad->contact = $contact;
+			$ad->save();
+		}
+	
 	}
+	
 }
+
+
+
 
 // function pageController(){
 
@@ -65,16 +127,38 @@ if(!empty($_POST)){
 <body>
 <?php require_once('../views/navbar.php') ?>
 
-<div class= "form_ads">
-	<form method= "POST" action="ads.index.php">
-		<input type="text" id="item_name" name="username" placeholder="Item Name">
-		<br>
+<div class="form_ads">
+	<form class "form-horizontal" method="POST">
+		<div class="form-group">
+		<input type="text" id="item_name" name="item_name" placeholder="Item Name">
+		</div>
+
+		<div class="form-group">
 		<input type="text" id="price" name="price" placeholder="Price">
-		<br>
-		<textarea id="description" name="description" rows="5" cols="40">Description of Item</textarea>
-		<br>
+		</div>
+
+		<div class="form-group">
+		<textarea id="description" name="description" rows="5" cols="40" placeholder=
+		"Description of Item"></textarea>
+		</div>
+		
+
+		<div class="form-group">
+    	<label for="exampleInputFile">Picture input</label>
+    	<input type="file" name = "filetoUpload" id="exampleInputFile">
+    	<p class="help-block">Add a picture!</p>
+    	<!-- <form action="upload.php" method="post" enctype="multipart/form-data">
+	    Select image to upload:
+	    <input type="file" name="fileToUpload" id="fileToUpload">
+	    <input type="submit" value="Upload Image" name="submit">
+		</form> -->
+
+  		</div>
+  		
+  		<div class="form-group">
 		<input type="text" id="contact" name="contact" placeholder="Contact Info.">
-		<br>
+		</div>
+		
 		<!-- <div class="form-group">
 			<label for="exampleInputFile">Upload an Image</label>
 			<input type="file" id="exampleInputFile">
