@@ -3,6 +3,7 @@
 require_once '../utils/Auth.php';
 require_once '../utils/Input.php';
 require_once '../models/Ad.php';
+require_once '../models/User.php';
 
 function pageController(){
 
@@ -15,6 +16,7 @@ function pageController(){
 
 	$username = Auth::user();
 	$user = User::findUserByUsername($username);
+	var_dump($user);
 	$errors = array();
 
 
