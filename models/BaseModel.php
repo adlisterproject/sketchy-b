@@ -19,7 +19,7 @@ class BaseModel {
     /*
      * Connect to the DB
      */
-    private static function dbConnect()
+    protected static function dbConnect()
     {
         if (!self::$dbc)
         {
