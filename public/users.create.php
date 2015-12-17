@@ -117,23 +117,33 @@ function pageController(){
 				$user->username = $username;
 				$user->email= $email;
 				$user->password = $password;
-				$user->save();
-				$errors = array();
 
-				$log = new Log();
+				try {
+					$user->save();
+					$log = new Log();
+					// if someone attempts to create a profile using a username and hypothetically the same password they cant get to the existing users profile
+					if (Auth::attempt($username, $password)){
+						$log->info('User {$username} logged in.');
+						header('Location: users.show.php');
+						exit();
+					} else {
+						$log->error('User {$username} failed to log in!');
+						$message = 'Please input the proper username and password.';
+					}
+				} catch (Exception $e){
+		            $error = $e->getMessage();
+		            array_push($errors, $error);
+		        }
 
-				if (Auth::attempt($username, $password)){
-					$log->info('User {$username} logged in.');
-					header('Location: users.show.php');
-					exit();
-				} else {
-					$log->error('User {$username} failed to log in!');
-					$message = 'Please input the proper username and password.';
-				}
+		        if(empty($errors)){
+		        	$errors = array();
+		        }
+       
+				
+
+				
 
 			}
-
-
 		}
 	}
 
