@@ -92,11 +92,14 @@ function pageController(){
 		} 
 
 		//makes sure that passwords match
-		try{
-			Input::checkMatch($password, $passwordmatch);
-		} catch(Exception $e){
-			$error = $e->getMessage();
-			array_push($errors, $error);
+		if(isset($password)&& isset($passwordmatch)){
+			
+			try{
+				Input::checkMatch($password, $passwordmatch);
+			} catch(Exception $e){
+				$error = $e->getMessage();
+				array_push($errors, $error);
+			}
 		}
 		
 		
