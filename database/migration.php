@@ -13,11 +13,12 @@ $query = "CREATE TABLE ads_list (
 	item_name varchar(100) NOT NULL,
 	price double NOT NULL,
 	description varchar(500) NOT NULL,
+	image_path varchar(200) NULL,
 	contact varchar(200) NOT NULL,
 	user_id INT NOT NULL,
 	PRIMARY KEY (id)
 	)";
-$dbc->exec($query);
+$dbc->exec($query);  
 
 $query= "DROP TABLE IF EXISTS users";
 $dbc->exec($query);

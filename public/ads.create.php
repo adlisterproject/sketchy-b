@@ -3,130 +3,157 @@
 require_once '../utils/Auth.php';
 require_once '../utils/Input.php';
 require_once '../models/Ad.php';
+require_once '../models/User.php';
 
-$errors = array();
+function pageController(){
 
+	session_start();
 
-if(!empty($_POST)){
+	if (!Auth::check()){
+		header('Location: auth.login.php');
+		exit();
+	}
 
-	// try{
-	// $item_name = Input::getString('item_name');
-	// } catch(OutOfRangeException $e){
-	// 	$error=$e->getMessage();
-	// 	array_push($errors, $error);
-	// } catch(InvalidArgumentException $e){
-	// 	$error=$e->getMessage();
-	// 	array_push($errprs, $error);
-	// } catch(DomainException $e){
-	// 	$error=$e->getMessage();
-	// 	array_push($errors, $error);
-	// } catch(LengthException $e){
-	// 	$error=$e->getMessage();
-	// 	array_push($errors, $error);
-	// }
-
-	// try{
-	// $price = Input::getString('price');
-	// } catch(OutofRangeException $e){
-	// 	$error=$e->getMessage();
-	// 	array_push($errors, $error);
-	// } catch(InvalidArgumentException $e){
-	// 	$error=$e->getMessage();
-	// 	array_push($errors, $error);
-	// } catch(DomainException $e){
-	// 	$error=$e->getMessage();
-	// 	array_push($errors, $error);
-	// } catch(LengthException $e){
-	// 	$error=$e->getMessage();
-	// 	array_push($errors, $error);
-	// }
-
-	// try{
-	// $description= Input::getString('description');
-	// } catch(OutOfRangeException $e){
-	// 	$error=$e->getMessage();
-	// 	array_push($errors, $error);
-	// } catch(InvalidArgumentException $e){
-	// 	$error=$e->getMessage();
-	// 	array_push($errors, $error);
-	// } catch(DomainException $e){
-	// 	$error=$e->getMessage();
-	// 	array_push($errors, $error);
-	// } catch(LengthException $e){
-	// 	$error=$e->getMessage();
-	// 	array_push($errors, $error);
-	// }
-
-	// try{
-	// $contact = Input::getString('contact');
-	// } catch(OutofRangeException $e){
-	// 	$error=$e->getMessage();
-	// 	array_push($errors, $error);
-	// } catch(InvalidArgumentException $e){
-	// 	$error=$e->getMessage();
-	// 	array_push($errors, $error);
-	// } catch(DomainException $e){
-	// 	$error=$e->getMessage();
-	// 	array_push($errors, $error);
-	// } catch(LengthException $e){
-	// 	$error=$e->getMessage();
-	// 	array_push($errors, $error);
-	// }
-
-// INPUT FUNCTIONS
-// $item_name = Input::getString('item_name');
-// $price = Input::getNumber('price');
-// $description= Input::getString('description');
-// $contact = Input::getString('contact');
+	$username = Auth::user();
+	$user = User::findUserByUsername($username);
+	$errors = array();
 
 
-// 	if(Input::notEmpty('item_name') 
-// 		&& Input::notEmpty('price') 
-// 		&& Input::notEmpty('description') 
-// 		&& Input::notEmpty('contact')){
+	if(!empty($_POST)){
 
-// 		if(empty($errors)){
-// 			$ad = new Ad();
-// 			$ad->item_name = $item_name;
-// 			$ad->price = $price;
-// 			$ad->description = $description;
-// 			$ad->contact = $contact;
-// 			$ad->save();
-// 		}
-	
-// 	}
-	
-}
+		try{
+		$item_name = Input::getString('item_name', 0, 50);
+		} catch (OutOfRangeException $e){
+			$error = $e->getMessage();
+			array_push($errors, $error);
+		} catch (InvalidArgumentException $e){
+			$error = $e->getMessage();
+			array_push($errors, $error);
+		} catch (DomainException $e){
+			$error = $e->getMessage();
+			array_push($errors, $error);
+		} catch(LengthException $e){
+			$error = $e->getMessage();
+			array_push($errors, $error);
+		} catch(Exception $e){
+			$error = $e->getMessage();
+			array_push($errors, $error); 
+		} 
+
+		try{
+			$price = Input::getNumber('price');
+		} catch (OutOfRangeException $e){
+			$error = $e->getMessage();
+			array_push($errors, $error);
+		} catch (InvalidArgumentException $e){
+			$error = $e->getMessage();
+			array_push($errors, $error);
+		} catch (DomainException $e){
+			$error = $e->getMessage();
+			array_push($errors, $error);
+		} catch(RangeException $e){
+			$error = $e->getMessage();
+			array_push($errors, $error);
+		} catch (Exception $e){
+			array_push($errors, $e->getMessage());
+		}
+
+		try{
+		$description= Input::getString('description', 0, 50);
+		} catch (OutOfRangeException $e){
+			$error = $e->getMessage();
+			array_push($errors, $error);
+		} catch (InvalidArgumentException $e){
+			$error = $e->getMessage();
+			array_push($errors, $error);
+		} catch (DomainException $e){
+			$error = $e->getMessage();
+			array_push($errors, $error);
+		} catch(LengthException $e){
+			$error = $e->getMessage();
+			array_push($errors, $error);
+		} catch(Exception $e){
+			$error = $e->getMessage();
+			array_push($errors, $error); 
+		} 
+
+		try{
+		$contact = Input::getString('contact', 0, 50);
+		} catch (OutOfRangeException $e){
+			$error = $e->getMessage();
+			array_push($errors, $error);
+		} catch (InvalidArgumentException $e){
+			$error = $e->getMessage();
+			array_push($errors, $error);
+		} catch (DomainException $e){
+			$error = $e->getMessage();
+			array_push($errors, $error);
+		} catch(LengthException $e){
+			$error = $e->getMessage();
+			array_push($errors, $error);
+		} catch(Exception $e){
+			$error = $e->getMessage();
+			array_push($errors, $error); 
+		}
 
 // FILE UPLOAD
 
 var_dump($_FILES);
 
-$target_dir= "";
-$target_file= $target_dir . basename($_FILES["image"]["name"]);
-$uploadOk=1;
-$imageFileType
+$target= "upload_images";
+// $target_file= $target . basename($_FILES["image"]["name"]);
+// $uploadOk=1;
+// $imageFileType
+
+// check if 'image' key exists in $_FILES
+// check if 'image', 'error' == UPLOAD_ERR_OK
+// move the file from tmp_name to somewhere in public, rename it to the value in 'name'
+// save the filename and/or path in the database
+
+// wrong: /vagrant/sites/adlister...
+// wrong: public/img/asdome.png
+// wrong: http://adlister.dev/img/adfasdf.png
+
+// right: adasdf.png
+// right: upload-img/asdfasdf.png
 
 
 
-// function pageController(){
+		if(Input::notEmpty('item_name') 
+			&& Input::notEmpty('price') 
+			&& Input::notEmpty('description') 
+			&& Input::notEmpty('contact')){
 
-// 	session_start();
+			if(empty($errors)){
+				if(array_key_exists('image', $_FILES)){
+					if($_FILES["image"]["error"]==UPLOAD_ERR_OK){
+						$tmp_name=$_FILES["image"]["tmp_name"];
+						$name=$_FILES["image"]["name"];
+						move_uploaded_file($tmp_name, "$target/$name");
+					}
 
-// 	if (!Auth::check()){
-// 		header('Location: auth.login.php');
-// 		exit();
-// 	}
+				} else {
 
-// 	$username = Auth::user();
+				}
+				$ad = new Ad();
+				$ad->item_name = $item_name;
+				$ad->price = $price;
+				$ad->description = $description;
+				$ad->contact = $contact;
+				$ad->user_id = $user->attributes['id'];
+				$ad->image_path = "$target/$name";
+				$ad->save();
+			}
+		}
+	
+	}
 
-// 	return array(
-// 		'username' => $username
-// 		);
+	return array(
+		'username' => $username
+	);
+}
 
-// }
-
-// extract(pageController());
+extract(pageController());
 ?>
 
 <!DOCTYPE html>

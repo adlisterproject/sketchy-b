@@ -6,3 +6,6 @@
 2015-12-16 17:23:02  [ERROR]	User {$username} failed to log in!
 2015-12-16 17:27:33  [INFO]	User {$username} logged in.
 2015-12-16 17:28:03  [INFO]	User {$username} logged in.
+2015-12-16 19:31:55  [INFO]	User {$username} logged in.
+2015-12-16 19:34:27  [ERROR]	User {$username} failed to log in!
+2015-12-16 19:34:42  [INFO]	User {$username} logged in.
