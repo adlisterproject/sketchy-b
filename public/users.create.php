@@ -51,7 +51,7 @@ function pageController(){
 		} catch(Exception $e){
 			$error = $e->getMessage();
 			array_push($errors, $error); 
-		}
+		} 
 
 		try{
 			$password = Input::getString('password', 0, 50);
@@ -154,7 +154,7 @@ extract(pageController());
 		<form method = "POST">
 			<input type="text" id="username" name="username" placeholder="Username">
 			<br>
-			<input type="text" id="email" name="email" placeholder="Email">
+			<input type="email" id="email" name="email" placeholder="Email">
 			<br>
 			<input type="password" id="password" name="password" placeholder="Password">
 			<br>

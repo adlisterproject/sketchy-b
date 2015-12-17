@@ -22,7 +22,7 @@ function pageController(){
 
 		if (Input::notEmpty('email')){
 			try {
-				$email = Input::getString('email');
+				$email = Input::getEmail('email');
 			} catch (OutOfRangeException $e){
 				$error = $e->getMessage();
 				array_push($errors, $error);

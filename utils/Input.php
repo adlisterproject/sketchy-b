@@ -1,5 +1,7 @@
 <?php
 
+class EmailException extends InvalidArgumentException {};
+
 class Input
 {
 
@@ -43,6 +45,48 @@ class Input
         if(!is_numeric($max)|| !is_numeric($min)){
             throw new InvalidArgumentException("$max and $min must be numeric.");
         }
+
+        if (!is_string(self::get($key)) || is_numeric(self::get($key))){
+            throw new DomainException ("$key must be a string.");
+        }
+
+        if(strlen(self::get($key)) > $max){
+            throw new LengthException("$key is too long. Max length is $max.");
+        }
+
+        if(strlen(self::get($key))<$min){
+            throw new LengthException("$key is too short. Min length is $min.");
+        }
+
+
+
+        return self::get($key);
+    }
+
+    //see below
+    // private static function isValidEmail($email) {
+    //     $result = (filter_var($email, FILTER_VALIDATE_EMAIL));
+    //     var_dump($result);
+    //     return $result;
+    // }
+
+    public static function getEmail($key, $min = 0, $max = 1000)
+    {
+        if(!self::notEmpty($key)){
+            throw new OutOfRangeException("Please enter $key.");
+        } 
+
+        if(!is_numeric($max)|| !is_numeric($min)){
+            throw new InvalidArgumentException("$max and $min must be numeric.");
+        }
+
+        // trying to validate email - using html5 validation. maybe try this later.
+        // $pattern = "^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$";
+        // if(preg_match($pattern, $key) === false){
+        //     throw new EmailException("$key is not valid email address");
+        // }
+       
+
 
         if (!is_string(self::get($key)) || is_numeric(self::get($key))){
             throw new DomainException ("$key must be a string.");

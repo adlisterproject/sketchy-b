@@ -140,6 +140,10 @@ $target= "upload_images";
 				$ad->image_path = "$target/$name";
 				$ad->save();
 
+				// redirect from add to the users profile so they can see what they added
+				header('Location: users.show.php');
+				exit();
+
 			}
 		}
 	
@@ -180,23 +184,11 @@ extract(pageController());
     	<label for="exampleInputFile">Picture input</label>
     	<input type="file" name="image" id="exampleInputFile">
     	<p class="help-block">Add a picture!</p>
-    	<!-- <form action="upload.php" method="post" enctype="multipart/form-data">
-	    Select image to upload:
-	    <input type="file" name="fileToUpload" id="fileToUpload">
-	    <input type="submit" value="Upload Image" name="submit">
-		</form> -->
 
-  		</div>
-  		
   		<div class="form-group">
 		<input type="text" id="contact" name="contact" placeholder="Contact Info.">
 		</div>
 		
-		<!-- <div class="form-group">
-			<label for="exampleInputFile">Upload an Image</label>
-			<input type="file" id="exampleInputFile">
-			<p class="help-block">Items with pictures tend to sell quicker.</p>
-		</div> -->
 		<input type="submit" value="add">
 	</form>
 </div>
