@@ -111,6 +111,10 @@ function pageController(){
 				$ad->user_id = $user->attributes['id'];
 				$ad->save();
 
+				// redirect from add to the users profile so they can see what they added
+				header('Location: users.show.php');
+				exit();
+
 			}
 		}
 	
@@ -148,10 +152,10 @@ extract(pageController());
 		</div>
 		
 
-		<div class="form-group">
+		<!-- <div class="form-group">
     	<label for="exampleInputFile">Picture input</label>
     	<input type="file" name = "filetoUpload" id="exampleInputFile">
-    	<p class="help-block">Add a picture!</p>
+    	<p class="help-block">Add a picture!</p> -->
     	<!-- <form action="upload.php" method="post" enctype="multipart/form-data">
 	    Select image to upload:
 	    <input type="file" name="fileToUpload" id="fileToUpload">
