@@ -96,32 +96,33 @@ function pageController(){
 			array_push($errors, $error); 
 		}
 
-// FILE UPLOAD
-
-var_dump($_FILES);
-
-$target= "upload_images";
-
-// check if 'image' key exists in $_FILES
-// check if 'image', 'error' == UPLOAD_ERR_OK
-// move the file from tmp_name to somewhere in public, rename it to the value in 'name'
-// save the filename and/or path in the database
-
-// wrong: /vagrant/sites/adlister...
-// wrong: public/img/asdome.png
-// wrong: http://adlister.dev/img/adfasdf.png
-
-// right: adasdf.png
-// right: upload-img/asdfasdf.png
+		$target= "upload_images";
 
 		if(Input::notEmpty('item_name') 
 			&& Input::notEmpty('price') 
 			&& Input::notEmpty('description') 
-			&& Input::notEmpty('contact')){
+			&& Input::notEmpty('contact')
+			&& Input::notEmpty('image')){
 
 			if(empty($errors)){
 				if(array_key_exists('image', $_FILES)){
 					if($_FILES["image"]["error"]==UPLOAD_ERR_OK){
+						$finfo = new finfo(FILEINFO_MIME_TYPE);
+    					try {
+    						$ext = array_search($finfo->file($_FILES['image']['tmp_name']),
+        				     	array(
+          					 		'jpg' => 'image/jpeg',
+           					 		'png' => 'image/png',
+          					 		'gif' => 'image/gif'
+      						  	),
+      						  	true);
+    						if (false === $ext) {
+      						  	throw new RuntimeException('Invalid file format.');
+    						}
+   					 	} catch (RunTimeException $e){
+    							$error=$e->getMessage();
+    							array_push($errors, $error);
+    						} 
 						$tmp_name=$_FILES["image"]["tmp_name"];
 						$name=$_FILES["image"]["name"];
 						move_uploaded_file($tmp_name, "$target/$name");
@@ -146,7 +147,6 @@ $target= "upload_images";
 
 			}
 		}
-	
 	}
 
 	return array(
@@ -164,6 +164,23 @@ extract(pageController());
 <body>
 <?php require_once('../views/navbar.php') ?>
 
+<h4><?php 
+		if(Input::notEmpty('item_name')
+			&& Input::notEmpty('price')
+			&& Input::notEmpty('description')
+			&& Input::notEmpty('contact')):
+
+			var_dump($errors);
+
+			if (!empty($errors)):
+				foreach ($errors as $error):
+					echo $error;?>
+				<br>
+				<?php endforeach;
+			endif;
+		endif;?>
+</h4>
+
 <div class="form_ads">
 	<form class="form-horizontal" method="POST" enctype="multipart/form-data">
 		<div class="form-group">
@@ -178,12 +195,12 @@ extract(pageController());
 		<textarea id="description" name="description" rows="5" cols="40" placeholder=
 		"Description of Item"></textarea>
 		</div>
-		
 
 		<div class="form-group">
     	<label for="exampleInputFile">Picture input</label>
     	<input type="file" name="image" id="exampleInputFile">
     	<p class="help-block">Add a picture!</p>
+
 
   		<div class="form-group">
 		<input type="text" id="contact" name="contact" placeholder="Contact Info.">
