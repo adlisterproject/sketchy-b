@@ -1,4 +1,4 @@
-<?php
+ <?php
 
 require_once '../utils/Auth.php';
 require_once '../utils/Input.php';
@@ -16,7 +16,6 @@ function pageController(){
 
 	$username = Auth::user();
 	$user = User::findUserByUsername($username);
-	var_dump($user);
 	$errors = array();
 
 
@@ -97,11 +96,6 @@ function pageController(){
 			array_push($errors, $error); 
 		} 
 
-	// $item_name = Input::getString('item_name');
-	// $price = Input::getNumber('price');
-	// $description= Input::getString('description');
-	// $contact = Input::getString('contact');
-
 
 		if(Input::notEmpty('item_name') 
 			&& Input::notEmpty('price') 
@@ -116,6 +110,7 @@ function pageController(){
 				$ad->contact = $contact;
 				$ad->user_id = $user->attributes['id'];
 				$ad->save();
+
 			}
 		}
 	
