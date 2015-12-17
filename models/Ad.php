@@ -15,6 +15,21 @@ class Ad extends BaseModel{
 		$stmt->bindValue(':user_id', $this->attributes['user_id'], PDO::PARAM_STR);
 		$stmt->execute();
 	}
+
+	public static function findByUserId($id)
+    {
+        // Get connection to the database
+        self::dbConnect();
+
+        // @TODO: Create select statement using prepared statements
+        $query = "SELECT * FROM ". static::$table . " WHERE user_id = :id";
+        $stmt = self::$dbc->prepare($query);
+        $stmt->bindValue(':id', $id, PDO::PARAM_INT);
+        $stmt->execute();
+        $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        return $results;
+
+    }
 }
 
 

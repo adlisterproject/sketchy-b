@@ -1,7 +1,7 @@
 <?php
 require_once '../utils/Auth.php';
 require_once '../utils/Input.php';
-require_once '../models/User.php';
+
 function pageController(){
 
 	session_start();
@@ -12,9 +12,7 @@ function pageController(){
 	}
 
 	$username = Auth::user();
-	$user = User::findUserByUsername($username);
-	var_dump(User::findUserByUsername($username));
-	
+	$user = User::findUserByUsername($username);	
 	$email = $user->attributes['email'];
 	$password = $user->attributes['password'];
 
@@ -121,11 +119,11 @@ extract(pageController());
 	<h1>Hello <?=$username?></h1>
 
 	<form method = "POST">
-		<a id = "emailbtn"><label>Email: <?=$email?></label></a>
+		<a id = "emailbtn"><label>Change Email</label></a>
 		<input class = "hidden" type="text" id="email" name="email" value="<?=$email?>">
 		<br>
 		<!-- hides passwords unless change password button is clicked -->
-		<button class = "btn-default" id = "passwordbtn">Change Password</button>
+		<a id = "passwordbtn"><label>Change Password</label></a>
 		<br>
 		<input class = "hidden" type="password" id="password" name="password" placeholder = "Password">
 		<br>

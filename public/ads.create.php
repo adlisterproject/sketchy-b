@@ -1,4 +1,4 @@
-<?php
+ <?php
 
 require_once '../utils/Auth.php';
 require_once '../utils/Input.php';
@@ -117,8 +117,6 @@ $target= "upload_images";
 // right: adasdf.png
 // right: upload-img/asdfasdf.png
 
-
-
 		if(Input::notEmpty('item_name') 
 			&& Input::notEmpty('price') 
 			&& Input::notEmpty('description') 
@@ -143,6 +141,7 @@ $target= "upload_images";
 				$ad->user_id = $user->attributes['id'];
 				$ad->image_path = "$target/$name";
 				$ad->save();
+
 			}
 		}
 	
