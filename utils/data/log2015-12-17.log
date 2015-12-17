@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 2015-12-17 16:38:39  [INFO]	User {$username} logged in.
 2015-12-17 16:39:09  [INFO]	User {$username} logged in.
 2015-12-17 16:42:05  [INFO]	User {$username} logged in.
@@ -7,3 +8,11 @@
 2015-12-17 16:56:36  [INFO]	User {$username} logged in.
 2015-12-17 17:09:35  [INFO]	User {$username} logged in.
 2015-12-17 17:54:42  [INFO]	User {$username} logged in.
+=======
+2015-12-17 15:09:28  [INFO]	User {$username} logged in.
+2015-12-17 17:33:15  [ERROR]	User {$username} failed to log in!
+2015-12-17 17:33:54  [ERROR]	User {$username} failed to log in!
+2015-12-17 17:34:03  [ERROR]	User {$username} failed to log in!
+2015-12-17 17:34:13  [ERROR]	User {$username} failed to log in!
+2015-12-17 17:49:44  [INFO]	User {$username} logged in.
+>>>>>>> master

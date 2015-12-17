@@ -13,7 +13,7 @@ $ads_list = Ad::all();
 	<?php foreach($ads_list as $ad): ?>
 	<div class="col-sm-4 col-lg-4 col-md-4">
         <div class="thumbnail">
-            <img src="/img/wagon.jpg" alt="">
+            <img src="<?=$ad['image_path']?>" alt="">
             <div class="caption">
             	<!-- make this the price class? -->
                 <h4 class="pull-right"> <?= $ad['price'] ?> </h4>
