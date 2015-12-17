@@ -23,6 +23,7 @@ function pageController(){
     $item_name = $ad->attributes['item_name'];
     $price = $ad->attributes['price'];
     $description = $ad->attributes['description'];
+    $image_path=$ad->attributes['image_path'];
     $contact = $ad->attributes['contact'];
 
     return array(
@@ -32,6 +33,7 @@ function pageController(){
         'item_name' => $item_name,
         'price' => $price,
         'description' => $description,
+        'image_path'=>$image_path,
         'contact' => $contact
         );
 
@@ -57,7 +59,7 @@ extract(pageController());
 
     <div class="row">
         <div class="col-md-8">
-            <img class="img-responsive" src="/img/wagon.jpg" alt="">
+            <img class="img-responsive" src="<?= $image_path?>" alt="">
         </div>
 
         <div class="col-md-4">

@@ -94,8 +94,25 @@ function pageController(){
 		} catch(Exception $e){
 			$error = $e->getMessage();
 			array_push($errors, $error); 
-		} 
+		}
 
+// FILE UPLOAD
+
+var_dump($_FILES);
+
+$target= "upload_images";
+
+// check if 'image' key exists in $_FILES
+// check if 'image', 'error' == UPLOAD_ERR_OK
+// move the file from tmp_name to somewhere in public, rename it to the value in 'name'
+// save the filename and/or path in the database
+
+// wrong: /vagrant/sites/adlister...
+// wrong: public/img/asdome.png
+// wrong: http://adlister.dev/img/adfasdf.png
+
+// right: adasdf.png
+// right: upload-img/asdfasdf.png
 
 		if(Input::notEmpty('item_name') 
 			&& Input::notEmpty('price') 
@@ -103,12 +120,24 @@ function pageController(){
 			&& Input::notEmpty('contact')){
 
 			if(empty($errors)){
+				if(array_key_exists('image', $_FILES)){
+					if($_FILES["image"]["error"]==UPLOAD_ERR_OK){
+						$tmp_name=$_FILES["image"]["tmp_name"];
+						$name=$_FILES["image"]["name"];
+						move_uploaded_file($tmp_name, "$target/$name");
+					}
+
+				} else {
+
+				}
+
 				$ad = new Ad();
 				$ad->item_name = $item_name;
 				$ad->price = $price;
 				$ad->description = $description;
 				$ad->contact = $contact;
 				$ad->user_id = $user->attributes['id'];
+				$ad->image_path = "$target/$name";
 				$ad->save();
 
 			}
@@ -118,8 +147,7 @@ function pageController(){
 
 	return array(
 		'username' => $username
-		);
-
+	);
 }
 
 extract(pageController());
@@ -133,7 +161,7 @@ extract(pageController());
 <?php require_once('../views/navbar.php') ?>
 
 <div class="form_ads">
-	<form class "form-horizontal" method="POST">
+	<form class="form-horizontal" method="POST" enctype="multipart/form-data">
 		<div class="form-group">
 		<input type="text" id="item_name" name="item_name" placeholder="Item Name">
 		</div>
@@ -150,7 +178,7 @@ extract(pageController());
 
 		<div class="form-group">
     	<label for="exampleInputFile">Picture input</label>
-    	<input type="file" name = "filetoUpload" id="exampleInputFile">
+    	<input type="file" name="image" id="exampleInputFile">
     	<p class="help-block">Add a picture!</p>
     	<!-- <form action="upload.php" method="post" enctype="multipart/form-data">
 	    Select image to upload:

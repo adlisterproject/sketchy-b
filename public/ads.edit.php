@@ -24,6 +24,7 @@ function pageController(){
 	$item_name = $ad->attributes['item_name'];
 	$price = $ad->attributes['price'];
 	$description = $ad->attributes['description'];
+	$image_path = $ad->attributes['image_path'];
 	$contact = $ad->attributes['contact'];
 
 	$errors = array();
@@ -118,6 +119,7 @@ function pageController(){
 			$ad->attributes['price'] = $price;
 			$ad->attributes['description'] = $description;
 			$ad->attributes['contact'] = $contact;
+			$ad->attributes['image_path'] = $image_path;
 			$ad->save();
 		}
 	}
@@ -128,6 +130,7 @@ function pageController(){
 		'item_name' => $item_name,
 		'price' => $price,
 		'description' => $description,
+		'image_path' => $image_path,
 		'contact' => $contact
 		);
 
@@ -144,7 +147,7 @@ extract(pageController());
 <body>
 	<div class="col-sm-4 col-lg-4 col-md-4">
         <div class="thumbnail">
-            <img src="/img/wagon.jpg" alt="">
+            <img src="<?=$image_path?>" alt="">
             <div class="caption">
             	<!-- make this the price class? -->
                 <h4 class="pull-right"><?=$price?></h4>
