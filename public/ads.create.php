@@ -101,9 +101,6 @@ function pageController(){
 var_dump($_FILES);
 
 $target= "upload_images";
-// $target_file= $target . basename($_FILES["image"]["name"]);
-// $uploadOk=1;
-// $imageFileType
 
 // check if 'image' key exists in $_FILES
 // check if 'image', 'error' == UPLOAD_ERR_OK
@@ -133,6 +130,7 @@ $target= "upload_images";
 				} else {
 
 				}
+
 				$ad = new Ad();
 				$ad->item_name = $item_name;
 				$ad->price = $price;
