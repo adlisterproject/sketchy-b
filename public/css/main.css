@@ -1,10 +1,22 @@
 /*keeps body from being hidden*/
 body { 
     padding-top: 65px; 
+    background-color: #ffb84d;
 }
+
+a{
+	color: black;
+}
+a:hover { 
+    text-decoration: none;
+    color: #777;
+}
+
 /*NAVBAR*/
 .navbar{
 	margin-bottom:300px;
+	background-color: #66b2ff;
+	border: 1px solid #777;
 }
 
 
@@ -19,6 +31,9 @@ body {
 	margin-top:100px;
 }
 
+.center{
+	text-align: center;
+}
 /*ALL IMAGES*/
 img{
 	height: 300 ;

@@ -147,7 +147,7 @@ extract(pageController());
 <body>
 	<div class="col-sm-4 col-lg-4 col-md-4">
         <div class="thumbnail">
-            <img src="<?=$image_path?>" alt="">
+            <img src="/<?=$image_path?>" alt="">
             <div class="caption">
             	<!-- make this the price class? -->
                 <h4 class="pull-right"><?=$price?></h4>
