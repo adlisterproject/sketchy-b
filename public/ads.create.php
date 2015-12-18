@@ -96,35 +96,71 @@ function pageController(){
 			array_push($errors, $error); 
 		}
 
-		$target= "upload_images";
+		// $tmp_name=$_FILES["image"]["tmp_name"];
+		// $name=$_FILES["image"]["name"];
+		// 	try {
+		// 		if(
+		// 			$name != "jpg" 
+		// 			&& $name != "png" 
+		// 			&& $name != "jpeg"
+		// 			&& $name != "gif" )
+  //   			{
+  //     				throw new RuntimeException('Invalid file format.');
+  //   			}
+  //  			} catch (RunTimeException $e){
+  //   				$error=$e->getMessage();
+  //   				array_push($errors, $error);
+  //   			}
 
-		if(Input::notEmpty('item_name') 
-			&& Input::notEmpty('price') 
-			&& Input::notEmpty('description') 
-			&& Input::notEmpty('contact')
-			&& Input::notEmpty('image')){
-
-			if(empty($errors)){
-				if(array_key_exists('image', $_FILES)){
-					if($_FILES["image"]["error"]==UPLOAD_ERR_OK){
-						$finfo = new finfo(FILEINFO_MIME_TYPE);
+		$finfo = new finfo(FILEINFO_MIME_TYPE);
     					try {
-    						$ext = array_search($finfo->file($_FILES['image']['tmp_name']),
+							$ext = array_search($finfo->file($_FILES['image']['tmp_name']),
         				     	array(
           					 		'jpg' => 'image/jpeg',
            					 		'png' => 'image/png',
           					 		'gif' => 'image/gif'
       						  	),
       						  	true);
-    						if (false === $ext) {
+    						if (false === $ext)
+
+    						 {
       						  	throw new RuntimeException('Invalid file format.');
     						}
    					 	} catch (RunTimeException $e){
     							$error=$e->getMessage();
     							array_push($errors, $error);
     						} 
+
+		
+
+		$target= "upload_images";
+
+		if(Input::notEmpty('item_name') 
+			&& Input::notEmpty('price') 
+			&& Input::notEmpty('description') 
+			&& Input::notEmpty('contact') 
+			){
+
+			if(empty($errors)){
+				if(array_key_exists('image', $_FILES)){
+					if($_FILES["image"]["error"]==UPLOAD_ERR_OK){
 						$tmp_name=$_FILES["image"]["tmp_name"];
 						$name=$_FILES["image"]["name"];
+						try {
+							if($name != "jpg" 
+							&& $name != "png" 
+							&& $name != "jpeg"
+							&& $name != "gif" )
+    						 {
+      						  	throw new RuntimeException('Invalid file format.');
+    						}
+   					 	} catch (RunTimeException $e){
+    							$error=$e->getMessage();
+    							array_push($errors, $error);
+    						}
+
+
+						
 						move_uploaded_file($tmp_name, "$target/$name");
 					}
 
@@ -150,7 +186,8 @@ function pageController(){
 	}
 
 	return array(
-		'username' => $username
+		'username' => $username,
+		'errors'   => $errors
 	);
 }
 
@@ -164,22 +201,16 @@ extract(pageController());
 <body>
 <?php require_once('../views/navbar.php') ?>
 
-<h4><?php 
-		if(Input::notEmpty('item_name')
-			&& Input::notEmpty('price')
-			&& Input::notEmpty('description')
-			&& Input::notEmpty('contact')):
-
-			var_dump($errors);
-
-			if (!empty($errors)):
-				foreach ($errors as $error):
-					echo $error;?>
-				<br>
-				<?php endforeach;
-			endif;
-		endif;?>
+<h4>
+	<?php if (!empty($errors)): ?>
+		<?php foreach ($errors as $error): ?>
+			<?= $error; ?>
+			<br>
+		<?php endforeach; ?>
+	<?php endif; ?>
 </h4>
+
+
 
 <div class="form_ads">
 	<form class="form-horizontal" method="POST" enctype="multipart/form-data">
@@ -214,3 +245,4 @@ extract(pageController());
 
 <?php require_once('../views/footer.php') ?>
 </html>
+
