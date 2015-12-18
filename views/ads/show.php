@@ -8,7 +8,7 @@ function pageController(){
     session_start();
 
     if (!Input::has('id')){
-        header('Location: ads.index.php');
+        header('Location: /ads');
         exit();
     }
 
@@ -70,7 +70,7 @@ extract(pageController());
             if (Auth::check()):
                 if ($userid==$aduserid):
                 ?>
-                    <label><a href="ads.edit.php?id=<?=$adid?>">Edit</a></label>
+                    <label><a href="/ads/edit?id=<?=$adid?>">Edit</a></label>
                 <?php endif;
             endif;
             ?>

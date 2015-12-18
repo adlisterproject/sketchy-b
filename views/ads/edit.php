@@ -9,7 +9,7 @@ function pageController(){
 	session_start();
 
 	if (!Auth::check()){
-		header('Location: auth.login.php');
+		header('Location: /auth/login');
 		exit();
 	}
 
@@ -151,7 +151,7 @@ extract(pageController());
             <div class="caption">
             	<!-- make this the price class? -->
                 <h4 class="pull-right"><?=$price?></h4>
-                <h4><a href="ads.show.php"><?=$item_name?></a>
+                <h4><a href="/ads/show"><?=$item_name?></a>
                 </h4>
                 <!-- make a description class here? -->
                 <!-- user can only edit ad if they are logged in and it is theirs -->
@@ -178,7 +178,7 @@ extract(pageController());
 		<input class = "hidden" type="text" id="contact" name="contact" placeholder="<?=$contact?>"> 
 		<br>
 		<input type = "submit" name = "submit" value = "Save">
-		<button class = "btn-default"><a href="users.show.php">Back to Profile</a></button>
+		<button class = "btn-default"><a href="/users">Back to Profile</a></button>
 	</form>
 	
 </body>

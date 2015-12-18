@@ -13,7 +13,7 @@ function pageController()
 
 
 	if (Auth::check()){
-		header('Location: users.show.php');
+		header('Location: /users');
 		exit();
 	}
 
@@ -26,7 +26,7 @@ if (!empty($_POST)){
 
 		if (Auth::attempt($username, $password)){
 			$log->info('User {$username} logged in.');
-			header('Location: users.show.php');
+			header('Location: /users');
 			exit();
 		} else {
 			$log->error('User {$username} failed to log in!');

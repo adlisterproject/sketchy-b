@@ -124,7 +124,7 @@ function pageController(){
 					// if someone attempts to create a profile using a username and hypothetically the same password they cant get to the existing users profile
 					if (Auth::attempt($username, $password)){
 						$log->info('User {$username} logged in.');
-						header('Location: users.show.php');
+						header('Location: /users');
 						exit();
 					} else {
 						$log->error('User {$username} failed to log in!');

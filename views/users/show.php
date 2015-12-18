@@ -7,7 +7,7 @@ function pageController(){
 	session_start();
 
 	if (!Auth::check()){
-		header('Location: auth.login.php');
+		header('Location: /auth/login');
 		exit();
 	}
 
@@ -38,8 +38,8 @@ extract(pageController());
 <body>
 
 	<h1>Hello <?=$username?></h1>
-	<h4><a href = "ads.create.php">Create Ad</a></h4>
-	<h4><a href = "users.edit.php">Edit Profile</a></h4>
+	<h4><a href = "/ads/create">Create Ad</a></h4>
+	<h4><a href = "/users/edit">Edit Profile</a></h4>
 
 	<?php foreach($ads_list as $ad): ?>
 	<div class="col-sm-4 col-lg-4 col-md-4">
@@ -48,12 +48,12 @@ extract(pageController());
             <div class="caption">
             	<!-- make this the price class? -->
                 <h4 class="pull-right"> <?= $ad['price'] ?> </h4>
-                <h4><a href="ads.show.php?id=<?=$ad['id']?>"> <?= $ad['item_name']?> </a>
+                <h4><a href="/ads/show?id=<?=$ad['id']?>"> <?= $ad['item_name']?> </a>
                 </h4>
                 <!-- make a description class here? -->
                 <!-- user can only edit ad if they are logged in and it is theirs -->
                 <p> <?= $ad['description'] ?> 
-                	<form method="GET" action="ads.edit.php">
+                	<form method="GET" action="/ads/edit">
                 		<!-- could use a query string with an anchor tag -->
                 		<input type="hidden" name="id" value="<?= $ad['id'] ?>">
                 		<input type="submit" value="Edit">
