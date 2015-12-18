@@ -10,7 +10,7 @@ function pageController(){
 	session_start();
 
 	if (!Auth::check()){
-		header('Location: /auth/login');
+		header('Location: auth.login.php');
 		exit();
 	}
 
@@ -131,13 +131,7 @@ function pageController(){
     							array_push($errors, $error);
     						} 
 
-
-
-
-
-$target= "upload_images";
-
-
+		
 
 		$target= "upload_images";
 
@@ -184,7 +178,7 @@ $target= "upload_images";
 				$ad->save();
 
 				// redirect from add to the users profile so they can see what they added
-				header('Location: /users');
+				header('Location: users.show.php');
 				exit();
 
 			}

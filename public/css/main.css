@@ -18,3 +18,10 @@ body {
 .form_users{
 	margin-top:100px;
 }
+
+/*ALL IMAGES*/
+img{
+	height: 300 ;
+	width: auto;
+
+}
