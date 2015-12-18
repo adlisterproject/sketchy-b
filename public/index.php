@@ -1,5 +1,6 @@
 <?php
-switch ($_SERVER['REQUEST_URI']) {
+$request = strtok($_SERVER['REQUEST_URI'], '?');
+switch ($request) {
     case '/ads':
         include '../views/ads/index.php';
         break;
