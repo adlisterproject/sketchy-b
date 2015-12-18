@@ -1,30 +1,36 @@
 <?php
-require_once '../utils/Auth.php';
-
-session_start();
+switch ($_SERVER['REQUEST_URI']) {
+    case '/ads':
+        include '../views/ads/index.php';
+        break;
+    case '/ads/show':
+        include '../views/ads/show.php';
+        break;
+    case '/ads/create':
+        include '../views/ads/create.php';
+        break;
+    case '/ads/edit':
+    	include '../views/ads/edit.php';
+    	break;
+    case '/users':
+    	include '../views/users/show.php';
+    	break;
+    case '/users/edit':
+    	include '../views/users/edit.php';
+    	break;
+    case '/users/create':
+    	include '../views/users/create.php';
+    	break;
+    case '/auth/login':
+    	include '../views/auth/login.php';
+    	break;	
+    case '/auth/logout':
+    	include '../views/auth/logout.php';
+    	break;
+    default:
+        include 'home.php';
+        break;
+}
 ?>
-
-<!DOCTYPE html>
-<html>
-<?php require_once('../views/header.php') ?> 
-<?php require_once('../views/navbar.php') ?>
-
-<body>
-	<!-- placeholders until we style with css -->
-	<h1>Welcome to Sketchy-B!</h1>
-
-	<!-- if user is logged in they cannot create another profile -->
-	<?php
-	if (!Auth::check()):?>
-	<div id = "user_create">
-		<a href="users.create.php">Create a Profile!</a>
-	</div>
-	<?php endif;?>
-
-	
-</body>
-
-<?php require_once('../views/footer.php') ?>
-</html>
 
 

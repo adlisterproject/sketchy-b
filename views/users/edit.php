@@ -7,7 +7,7 @@ function pageController(){
 	session_start();
 
 	if (!Auth::check()){
-		header('Location: auth.login.php');
+		header('Location: /auth/login');
 		exit();
 	}
 
@@ -130,7 +130,7 @@ extract(pageController());
 		<input class = "hidden" type="password" id="passwordmatch" name="passwordmatch" placeholder="Confirm Password"> 
 		<br>
 		<input type = "submit" name = "submit" value = "Save">
-		<button class = "btn-default"><a href="users.show.php">Cancel</a></button>
+		<button class = "btn-default"><a href="/users">Cancel</a></button>
 	</form>
 	
 </body>

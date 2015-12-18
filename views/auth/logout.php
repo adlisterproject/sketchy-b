@@ -5,7 +5,7 @@ session_start();
 
 Auth::logout();
 
-header("Location: auth.login.php");
+header("Location: /auth/login");
 exit();
 
 ?>
