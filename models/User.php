@@ -12,8 +12,8 @@ class User extends BaseModel{
 		$stmt->bindValue(':email', $this->attributes['email'], PDO::PARAM_STR);
 		//password hashbrowns for security
 		$stmt->bindValue(':password', password_hash($this->attributes['password'], PASSWORD_DEFAULT), PDO::PARAM_STR);
-		$stmt->execute();
-	}
+        $stmt->execute();
+    }
 
 	protected function update($id)
     {

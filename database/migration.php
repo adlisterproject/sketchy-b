@@ -29,7 +29,8 @@ $query = "CREATE TABLE users (
 	email varchar(100) NOT NULL,
 	password varchar(100) NOT NULL,
 	PRIMARY KEY (id),
-	UNIQUE (username, email)
+	UNIQUE (username),
+	UNIQUE (email)
 	)";
 $dbc->exec($query);
 
