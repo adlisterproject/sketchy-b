@@ -49,8 +49,8 @@ extract(pageController());
 
 <body>
 	<!-- login block -->
-	<h1>Log-In</h1>
-    <form method="POST">
+	<h1 class="center">Log-In</h1>
+    <form class="center" method="POST">
         <label>Username</label>
         <input type="text" name="username"><br>
         <label>Password</label>

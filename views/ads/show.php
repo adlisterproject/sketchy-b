@@ -59,7 +59,7 @@ extract(pageController());
 
     <div class="row">
         <div class="col-md-8">
-            <img class="img-responsive" src="<?= $image_path?>" alt="">
+            <img class="img-responsive" src="/<?= $image_path?>" alt="">
         </div>
 
         <div class="col-md-4">
