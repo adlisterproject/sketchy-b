@@ -11,12 +11,12 @@ session_start();
 
 <body>
 	<!-- placeholders until we style with css -->
-	<h1>Welcome to Sketchy-B!</h1>
+	<h1 class="center">Welcome to Sketchy-B!</h1>
 
 	<!-- if user is logged in they cannot create another profile -->
 	<?php
 	if (!Auth::check()):?>
-	<div id = "user_create">
+	<div class="center" id = "user_create">
 		<a href="users.create.php">Create a Profile!</a>
 	</div>
 	<?php endif;?>

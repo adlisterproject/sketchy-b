@@ -37,9 +37,9 @@ extract(pageController());
 
 <body>
 
-	<h1>Hello <?=$username?></h1>
-	<h4><a href = "/ads/create">Create Ad</a></h4>
-	<h4><a href = "/users/edit">Edit Profile</a></h4>
+	<h1 class="center">Hello <?=$username?></h1>
+	<h4 class="center"><a href = "/ads/create">Create Ad</a></h4>
+	<h4 class="center"><a href = "/users/edit">Edit Profile</a></h4>
 
 	<?php foreach($ads_list as $ad): ?>
 	<div class="col-sm-4 col-lg-4 col-md-4">
