@@ -12,9 +12,14 @@ function pageController(){
         exit();
     }
 
-    $username = Auth::user();
-    $user = User::findUserByUsername($username);
-    $userid = $user->attributes['id'];
+    if (Auth::check()){
+        $username = Auth::user();
+        $user = User::findUserByUsername($username);
+        $userid = $user->attributes['id'];
+    } else {
+        $userid = null;
+    }
+    
 
     $adid = Input::get('id');
     $ad = Ad::find($adid);

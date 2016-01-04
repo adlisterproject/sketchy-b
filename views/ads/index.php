@@ -18,7 +18,7 @@ $ads_list = Ad::all();
             <img src="<?=$ad['image_path']?>" alt="">
             <div class="caption">
             	<!-- make this the price class? -->
-                <h4 class="pull-right"> <?= $ad['price'] ?> </h4>
+                <h4 class="pull-right">$<?= $ad['price'] ?> </h4>
                 <h4><a href="/ads/show?id=<?=$ad['id']?>"> <?= $ad['item_name']?></a>
                 </h4>
                 <!-- make a description class here? -->

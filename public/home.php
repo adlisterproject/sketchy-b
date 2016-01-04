@@ -17,7 +17,7 @@ session_start();
 	<?php
 	if (!Auth::check()):?>
 	<div class="center" id = "user_create">
-		<a href="users.create.php">Create a Profile!</a>
+		<a href="/users/create">Create a Profile!</a>
 	</div>
 	<?php endif;?>
 
