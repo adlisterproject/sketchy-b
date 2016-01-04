@@ -32,22 +32,6 @@ function pageController(){
 
 		$errors = ValidateAd::getErrors();
 
-		// $tmp_name=$_FILES["image"]["tmp_name"];
-		// $name=$_FILES["image"]["name"];
-		// 	try {
-		// 		if(
-		// 			$name != "jpg" 
-		// 			&& $name != "png" 
-		// 			&& $name != "jpeg"
-		// 			&& $name != "gif" )
-  //   			{
-  //     				throw new RuntimeException('Invalid file format.');
-  //   			}
-  //  			} catch (RunTimeException $e){
-  //   				$error=$e->getMessage();
-  //   				array_push($errors, $error);
-  //   			}
-
 		$finfo = new finfo(FILEINFO_MIME_TYPE);
 			try {
 				$ext = array_search($finfo->file($_FILES['image']['tmp_name']),
@@ -90,8 +74,6 @@ function pageController(){
     							$error=$e->getMessage();
     							array_push($errors, $error);
     						}
-
-
 						
 						move_uploaded_file($tmp_name, "$target/$name");
 					}
