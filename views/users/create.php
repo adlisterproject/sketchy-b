@@ -3,6 +3,8 @@
 require_once '../utils/Input.php';
 require_once '../utils/Logger.php'; 
 require_once '../utils/Auth.php'; 
+require_once '../utils/ValidateUser.php'; 
+
 
 
 function pageController(){
@@ -15,81 +17,15 @@ function pageController(){
 
 	if(!empty($_POST)){
 		// this block checks to see if an error is going to be thrown
-		try{
-			$username = Input::getString('username', 0, 50);
-		} catch (OutOfRangeException $e){
-			$error = $e->getMessage();
-			array_push($errors, $error);
-		} catch (InvalidArgumentException $e){
-			$error = $e->getMessage();
-			array_push($errors, $error);
-		} catch (DomainException $e){
-			$error = $e->getMessage();
-			array_push($errors, $error);
-		} catch(LengthException $e){
-			$error = $e->getMessage();
-			array_push($errors, $error);
-		} catch(Exception $e){
-			$error = $e->getMessage();
-			array_push($errors, $error); 
-		} 
+		$username = ValidateUser::getUsername();
 
-		try{
-			$email = Input::getString('email', 0, 50);
-		} catch (OutOfRangeException $e){
-			$error = $e->getMessage();
-			array_push($errors, $error);
-		} catch (InvalidArgumentException $e){
-			$error = $e->getMessage();
-			array_push($errors, $error);
-		} catch (DomainException $e){
-			$error = $e->getMessage();
-			array_push($errors, $error);
-		} catch(LengthException $e){
-			$error = $e->getMessage();
-			array_push($errors, $error);
-		} catch(Exception $e){
-			$error = $e->getMessage();
-			array_push($errors, $error); 
-		} 
+		$email = ValidateUser::getEmail(); 
 
-		try{
-			$password = Input::getString('password', 0, 50);
-		} catch (OutOfRangeException $e){
-			$error = $e->getMessage();
-			array_push($errors, $error);
-		} catch (InvalidArgumentException $e){
-			$error = $e->getMessage();
-			array_push($errors, $error);
-		} catch (DomainException $e){
-			$error = $e->getMessage();
-			array_push($errors, $error);
-		} catch(LengthException $e){
-			$error = $e->getMessage();
-			array_push($errors, $error);
-		} catch(Exception $e){
-			$error = $e->getMessage();
-			array_push($errors, $error); 
-		} 
+		$password = ValidateUser::getPassword();
+		
+		$passwordmatch = ValidateUser::getPasswordMatch(); 
 
-		try{
-			$passwordmatch = Input::getString('passwordmatch', 0, 50);
-		} catch (OutOfRangeException $e){
-			$error = $e->getMessage();
-			array_push($errors, $error);
-		} catch (InvalidArgumentException $e){
-			$error = $e->getMessage();
-			array_push($errors, $error);
-		} catch (DomainException $e){
-			$error = $e->getMessage();
-			array_push($errors, $error);
-		} catch(LengthException $e){
-			$error = $e->getMessage();
-			array_push($errors, $error);
-		} catch(Exception $e){
-			$error = $e->getMessage();
-			array_push($errors, $error); 
-		} 
+		$errors = ValidateUser::getErrors();
 
 		//makes sure that passwords match
 		if(isset($password)&& isset($passwordmatch)){

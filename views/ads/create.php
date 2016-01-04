@@ -2,6 +2,7 @@
 
 require_once '../utils/Auth.php';
 require_once '../utils/Input.php';
+require_once '../utils/ValidateAd.php';
 require_once '../models/Ad.php';
 require_once '../models/User.php';
 
@@ -21,80 +22,15 @@ function pageController(){
 
 	if(!empty($_POST)){
 
-		try{
-		$item_name = Input::getString('item_name', 0, 50);
-		} catch (OutOfRangeException $e){
-			$error = $e->getMessage();
-			array_push($errors, $error);
-		} catch (InvalidArgumentException $e){
-			$error = $e->getMessage();
-			array_push($errors, $error);
-		} catch (DomainException $e){
-			$error = $e->getMessage();
-			array_push($errors, $error);
-		} catch(LengthException $e){
-			$error = $e->getMessage();
-			array_push($errors, $error);
-		} catch(Exception $e){
-			$error = $e->getMessage();
-			array_push($errors, $error); 
-		} 
+		$item_name = ValidateAd::getItemName();
+ 
+		$price = ValidateAd::getPrice();
+		
+		$description = ValidateAd::getDescription();
+		
+		$contact = ValidateAd::getContact();
 
-		try{
-			$price = Input::getNumber('price');
-		} catch (OutOfRangeException $e){
-			$error = $e->getMessage();
-			array_push($errors, $error);
-		} catch (InvalidArgumentException $e){
-			$error = $e->getMessage();
-			array_push($errors, $error);
-		} catch (DomainException $e){
-			$error = $e->getMessage();
-			array_push($errors, $error);
-		} catch(RangeException $e){
-			$error = $e->getMessage();
-			array_push($errors, $error);
-		} catch (Exception $e){
-			array_push($errors, $e->getMessage());
-		}
-
-		try{
-		$description= Input::getString('description', 0, 50);
-		} catch (OutOfRangeException $e){
-			$error = $e->getMessage();
-			array_push($errors, $error);
-		} catch (InvalidArgumentException $e){
-			$error = $e->getMessage();
-			array_push($errors, $error);
-		} catch (DomainException $e){
-			$error = $e->getMessage();
-			array_push($errors, $error);
-		} catch(LengthException $e){
-			$error = $e->getMessage();
-			array_push($errors, $error);
-		} catch(Exception $e){
-			$error = $e->getMessage();
-			array_push($errors, $error); 
-		} 
-
-		try{
-		$contact = Input::getString('contact', 0, 50);
-		} catch (OutOfRangeException $e){
-			$error = $e->getMessage();
-			array_push($errors, $error);
-		} catch (InvalidArgumentException $e){
-			$error = $e->getMessage();
-			array_push($errors, $error);
-		} catch (DomainException $e){
-			$error = $e->getMessage();
-			array_push($errors, $error);
-		} catch(LengthException $e){
-			$error = $e->getMessage();
-			array_push($errors, $error);
-		} catch(Exception $e){
-			$error = $e->getMessage();
-			array_push($errors, $error); 
-		}
+		$errors = ValidateAd::getErrors();
 
 		// $tmp_name=$_FILES["image"]["tmp_name"];
 		// $name=$_FILES["image"]["name"];
@@ -113,31 +49,21 @@ function pageController(){
   //   			}
 
 		$finfo = new finfo(FILEINFO_MIME_TYPE);
-    					try {
-							$ext = array_search($finfo->file($_FILES['image']['tmp_name']),
-        				     	array(
-          					 		'jpg' => 'image/jpeg',
-           					 		'png' => 'image/png',
-          					 		'gif' => 'image/gif'
-      						  	),
-      						  	true);
-    						if (false === $ext)
-
-    						 {
-      						  	throw new RuntimeException('Invalid file format.');
-    						}
-   					 	} catch (RunTimeException $e){
-    							$error=$e->getMessage();
-    							array_push($errors, $error);
-    						} 
-
-
-
-
-
-$target= "upload_images";
-
-
+			try {
+				$ext = array_search($finfo->file($_FILES['image']['tmp_name']),
+			     	array(
+					 		'jpg' => 'image/jpeg',
+					 		'png' => 'image/png',
+					 		'gif' => 'image/gif'
+					  	),
+					  	true);
+				if (false === $ext){
+					throw new RuntimeException('Invalid file format.');
+				}
+		 	} catch (RunTimeException $e){
+				$error=$e->getMessage();
+				array_push($errors, $error);
+			} 
 
 		$target= "upload_images";
 

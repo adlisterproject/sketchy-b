@@ -107,7 +107,6 @@ function pageController(){
 		'email' => $email,
 		'password' => $password
 		);
-
 }
 
 extract(pageController());
