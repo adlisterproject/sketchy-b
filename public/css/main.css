@@ -21,8 +21,9 @@ a:hover {
 
 
 /*ADS.CREATE.PHP*/
-.form_ads{
-	margin-top:100px;
+.createform{
+	border: 1px solid #000;
+	text-align: center;
 }
 
 
@@ -36,7 +37,7 @@ a:hover {
 }
 /*ALL IMAGES*/
 img{
-	height: 300 ;
+	height: 300;
 	width: auto;
 
 }
