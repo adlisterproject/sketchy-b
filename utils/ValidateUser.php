@@ -8,23 +8,12 @@ class ValidateUser extends Validate
 
 	public static function getUsername ()
 	{
+		//no need to differentiate between which exception is thrown. we just want the message
+		//this will still catch the differing messages
 		try{
 			return Input::getString('username', 0, 50);
-		} catch (OutOfRangeException $e){
-			$error = $e->getMessage();
-			array_push($errors, $error);
-		} catch (InvalidArgumentException $e){
-			$error = $e->getMessage();
-			array_push($errors, $error);
-		} catch (DomainException $e){
-			$error = $e->getMessage();
-			array_push($errors, $error);
-		} catch(LengthException $e){
-			$error = $e->getMessage();
-			array_push($errors, $error);
 		} catch(Exception $e){
-			$error = $e->getMessage();
-			array_push($errors, $error); 
+			self::addError($e->getMessage()); 
 		} 
 	}
 
@@ -32,21 +21,8 @@ class ValidateUser extends Validate
 	{
 		try{
 			return Input::getString('email', 0, 50);
-		} catch (OutOfRangeException $e){
-			$error = $e->getMessage();
-			array_push($errors, $error);
-		} catch (InvalidArgumentException $e){
-			$error = $e->getMessage();
-			array_push($errors, $error);
-		} catch (DomainException $e){
-			$error = $e->getMessage();
-			array_push($errors, $error);
-		} catch(LengthException $e){
-			$error = $e->getMessage();
-			array_push($errors, $error);
 		} catch(Exception $e){
-			$error = $e->getMessage();
-			array_push($errors, $error); 
+			self::addError($e->getMessage()); 
 		}
 	}
 
@@ -54,21 +30,8 @@ class ValidateUser extends Validate
 	{
 		try{
 			return Input::getString('password', 0, 50);
-		} catch (OutOfRangeException $e){
-			$error = $e->getMessage();
-			array_push($errors, $error);
-		} catch (InvalidArgumentException $e){
-			$error = $e->getMessage();
-			array_push($errors, $error);
-		} catch (DomainException $e){
-			$error = $e->getMessage();
-			array_push($errors, $error);
-		} catch(LengthException $e){
-			$error = $e->getMessage();
-			array_push($errors, $error);
 		} catch(Exception $e){
-			$error = $e->getMessage();
-			array_push($errors, $error); 
+			self::addError($e->getMessage()); 
 		}
 	}
 
@@ -76,21 +39,8 @@ class ValidateUser extends Validate
 	{
 		try{
 			return Input::getString('passwordmatch', 0, 50);
-		} catch (OutOfRangeException $e){
-			$error = $e->getMessage();
-			array_push($errors, $error);
-		} catch (InvalidArgumentException $e){
-			$error = $e->getMessage();
-			array_push($errors, $error);
-		} catch (DomainException $e){
-			$error = $e->getMessage();
-			array_push($errors, $error);
-		} catch(LengthException $e){
-			$error = $e->getMessage();
-			array_push($errors, $error);
 		} catch(Exception $e){
-			$error = $e->getMessage();
-			array_push($errors, $error); 
+			self::addError($e->getMessage()); 
 		} 
 	}
 
