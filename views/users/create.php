@@ -25,18 +25,12 @@ function pageController(){
 		
 		$passwordmatch = ValidateUser::getPasswordMatch(); 
 
-		$errors = ValidateUser::getErrors();
-
 		//makes sure that passwords match
 		if(isset($password)&& isset($passwordmatch)){
-			
-			try{
-				Input::checkMatch($password, $passwordmatch);
-			} catch(Exception $e){
-				$error = $e->getMessage();
-				array_push($errors, $error);
-			}
+			ValidateUser::getCheckMatch($password, $passwordmatch);
 		}
+		
+		$errors = ValidateUser::getErrors();
 		
 		
 

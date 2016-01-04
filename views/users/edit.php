@@ -21,75 +21,22 @@ function pageController(){
 	if (!empty($_POST)){
 
 		if (Input::notEmpty('email')){
-			try {
-				$email = Input::getEmail('email');
-			} catch (OutOfRangeException $e){
-				$error = $e->getMessage();
-				array_push($errors, $error);
-			} catch (InvalidArgumentException $e){
-				$error = $e->getMessage();
-				array_push($errors, $error);
-			} catch (DomainException $e){
-				$error = $e->getMessage();
-				array_push($errors, $error);
-			} catch(LengthException $e){
-				$error = $e->getMessage();
-				array_push($errors, $error);
-			} catch(Exception $e){
-				$error = $e->getMessage();
-				array_push($errors, $error); 
-			} 
+			$email = ValidateUser::getEmail(); 
 		}
+
 		if (Input::notEmpty('password')){
-			try {
-				$password = Input::getString('password');
-			} catch (OutOfRangeException $e){
-				$error = $e->getMessage();
-				array_push($errors, $error);
-			} catch (InvalidArgumentException $e){
-				$error = $e->getMessage();
-				array_push($errors, $error);
-			} catch (DomainException $e){
-				$error = $e->getMessage();
-				array_push($errors, $error);
-			} catch(LengthException $e){
-				$error = $e->getMessage();
-				array_push($errors, $error);
-			} catch(Exception $e){
-				$error = $e->getMessage();
-				array_push($errors, $error); 
-			} 
+			$password = ValidateUser::getPassword();	
 		}
 
 		if (Input::notEmpty('passwordmatch')){
-			try {
-				$passwordmatch = Input::getString('passwordmatch');
-			} catch (OutOfRangeException $e){
-				$error = $e->getMessage();
-				array_push($errors, $error);
-			} catch (InvalidArgumentException $e){
-				$error = $e->getMessage();
-				array_push($errors, $error);
-			} catch (DomainException $e){
-				$error = $e->getMessage();
-				array_push($errors, $error);
-			} catch(LengthException $e){
-				$error = $e->getMessage();
-				array_push($errors, $error);
-			} catch(Exception $e){
-				$error = $e->getMessage();
-				array_push($errors, $error); 
-			} 
+			$passwordmatch = ValidateUser::getPasswordMatch();
 		}
 
 		if (Input::notEmpty('passwordmatch') && Input::notEmpty('password')){
-			try{
-				Input::checkMatch($password, $passwordmatch);
-			} catch(Exception $e){
-				$error = $e->getMessage();
-				array_push($errors, $error);
-			}
+			ValidateUser::getCheckMatch($password, $passwordmatch);
 		}
+
+		$errors = ValidateUser::getErrors();
 		
 		if (empty($errors)){
 			$user->attributes['username'] = $username;	

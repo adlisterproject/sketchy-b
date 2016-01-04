@@ -44,6 +44,15 @@ class ValidateUser extends Validate
 		} 
 	}
 
+	public static function getCheckMatch($password, $passwordmatch)
+	{
+		try{
+			Input::checkMatch($password, $passwordmatch);
+		} catch(Exception $e){
+			self::addError($e->getMessage());
+		}
+	}
+
 }
 
 
