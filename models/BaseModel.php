@@ -1,7 +1,9 @@
 <?php
 require_once '../utils/ads_login.php';
 
-class BaseModel {
+abstract class BaseModel {
+    //this class is incomplete. there is at least one thing that is not implemented 
+    // and subclasses need to implement it
 
     protected static $dbc;
     protected static $table;
@@ -83,12 +85,8 @@ class BaseModel {
         }
     }
 
-    protected function insert()
-    {
-
-
-    }
-
+    protected abstract function insert();
+    //this is an incomplete method. the abstract keyword forces the subclasses to implement this method.
     /*
      * Find a record based on an id
      */
