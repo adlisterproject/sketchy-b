@@ -1,6 +1,7 @@
 <?php
 require_once '../utils/Auth.php';
 require_once '../utils/Input.php';
+require_once '../utils/ValidateAd.php';
 require_once '../models/Ad.php';
 
 
@@ -32,85 +33,22 @@ function pageController(){
 	if (!empty($_POST)){
 
 		if (Input::notEmpty('item_name')){
-			try {
-				$item_name = Input::getString('item_name');
-			} catch (OutOfRangeException $e){
-				$error = $e->getMessage();
-				array_push($errors, $error);
-			} catch (InvalidArgumentException $e){
-				$error = $e->getMessage();
-				array_push($errors, $error);
-			} catch (DomainException $e){
-				$error = $e->getMessage();
-				array_push($errors, $error);
-			} catch(LengthException $e){
-				$error = $e->getMessage();
-				array_push($errors, $error);
-			} catch(Exception $e){
-				$error = $e->getMessage();
-				array_push($errors, $error); 
-			} 
+			$item_name = ValidateAd::getItemName();
 		}
+
 		if (Input::notEmpty('price')){
-			try{
-				$price = Input::getNumber('price');
-			} catch (OutOfRangeException $e){
-				$error = $e->getMessage();
-				array_push($errors, $error);
-			} catch (InvalidArgumentException $e){
-				$error = $e->getMessage();
-				array_push($errors, $error);
-			} catch (DomainException $e){
-				$error = $e->getMessage();
-				array_push($errors, $error);
-			} catch(RangeException $e){
-				$error = $e->getMessage();
-				array_push($errors, $error);
-			} catch (Exception $e){
-				array_push($errors, $e->getMessage());
-			}
+			$price = ValidateAd::getPrice();	
 		}
 
 		if (Input::notEmpty('description')){
-			try {
-				$description = Input::getString('description');
-			} catch (OutOfRangeException $e){
-				$error = $e->getMessage();
-				array_push($errors, $error);
-			} catch (InvalidArgumentException $e){
-				$error = $e->getMessage();
-				array_push($errors, $error);
-			} catch (DomainException $e){
-				$error = $e->getMessage();
-				array_push($errors, $error);
-			} catch(LengthException $e){
-				$error = $e->getMessage();
-				array_push($errors, $error);
-			} catch(Exception $e){
-				$error = $e->getMessage();
-				array_push($errors, $error); 
-			} 
+			$description = ValidateAd::getDescription();
 		}
+
 		if (Input::notEmpty('contact')){
-			try {
-				$contact = Input::getString('contact');
-			} catch (OutOfRangeException $e){
-				$error = $e->getMessage();
-				array_push($errors, $error);
-			} catch (InvalidArgumentException $e){
-				$error = $e->getMessage();
-				array_push($errors, $error);
-			} catch (DomainException $e){
-				$error = $e->getMessage();
-				array_push($errors, $error);
-			} catch(LengthException $e){
-				$error = $e->getMessage();
-				array_push($errors, $error);
-			} catch(Exception $e){
-				$error = $e->getMessage();
-				array_push($errors, $error); 
-			} 
+			$contact = ValidateAd::getContact();
 		}
+
+		$errors = ValidateAd::getErrors();
 
 
 		

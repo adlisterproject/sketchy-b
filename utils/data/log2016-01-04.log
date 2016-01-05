@@ -7,3 +7,10 @@
 2016-01-04 17:31:01  [ERROR]	User {$username} failed to log in!
 2016-01-04 17:31:43  [INFO]	User {$username} logged in.
 2016-01-04 17:31:53  [INFO]	User {$username} logged in.
+2016-01-04 19:52:01  [INFO]	User {$username} logged in.
+2016-01-04 20:07:01  [ERROR]	User {$username} failed to log in!
+2016-01-04 20:07:06  [ERROR]	User {$username} failed to log in!
+2016-01-04 20:07:16  [ERROR]	User {$username} failed to log in!
+2016-01-04 20:07:24  [INFO]	User {$username} logged in.
+2016-01-04 20:53:36  [INFO]	User {$username} logged in.
+2016-01-04 21:10:56  [INFO]	User {$username} logged in.
