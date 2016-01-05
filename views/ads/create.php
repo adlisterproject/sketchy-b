@@ -139,7 +139,7 @@ $target= "upload_images";
 
 
 
-		$target= "upload_images";
+		$target= "public/upload_images";
 
 		if(Input::notEmpty('item_name') 
 			&& Input::notEmpty('price') 

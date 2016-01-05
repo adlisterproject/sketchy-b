@@ -89,9 +89,20 @@ class BaseModel {
 
     }
 
+    // DELETE RECORD BASED ON ID
+
+    public static function delete($id)
+    {
+        $query="DELETE FROM ". static::$table . " WHERE id = :id";
+        $stmt= self::$dbc->prepare($query);
+        $stmt->bindValue(':id', $id, PDO::PARAM_INT);
+        $stmt->execute();
+    }
+
     /*
      * Find a record based on an id
      */
+
     public static function find($id)
     {
         // Get connection to the database

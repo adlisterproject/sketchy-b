@@ -122,10 +122,24 @@ function pageController(){
 			$ad->attributes['image_path'] = $image_path;
 			$ad->save();
 		}
+
+
+		if (!Input::notEmpty('delete-id')){
+			//if the form has been submitted
+
+			Ad::delete($ad->attributes['id']);
+			header("Location: /ads");
+			die();
+			//delete the specific ad - going to need to somehow tie in the ad id to the delete buttn for that specific id
+		}
 	}
 
 
+
+
+
 	return array(
+		'ad' => $ad,
 		'username' => $username,
 		'item_name' => $item_name,
 		'price' => $price,
@@ -147,7 +161,7 @@ extract(pageController());
 <body>
 	<div class="col-sm-4 col-lg-4 col-md-4">
         <div class="thumbnail">
-            <img src="/<?=$image_path?>" alt="">
+            <img src="<?= $ad->attributes['image_path'] ?>" alt="">
             <div class="caption">
             	<!-- make this the price class? -->
                 <h4 class="pull-right"><?=$price?></h4>
@@ -157,9 +171,19 @@ extract(pageController());
                 <!-- user can only edit ad if they are logged in and it is theirs -->
                 <p><?=$description?></p>
                 <p><?=$contact?></p>
+                
+                 	<button class="btn btn-danger btn-xs btn-delete" data-id="<?= $ad->id; ?>" data-name="<?= $item_name; ?>">Delete
+                 	</button>
+                 <form method="post" id="delete-form">
+    				<input type="hidden" name="id" id="delete-id">
+				 </form>
+                 
+            
+        </button>
             </div>
         </div>
     </div>
+
 
     <form method = "POST">
 		<a id = "namebtn"><label>Change Name</label></a>
@@ -201,5 +225,26 @@ extract(pageController());
 		(e).preventDefault();
 		$("#contact").toggleClass("hidden");
 	});
+
+	 (function() {
+        "use strict";
+        
+        // Grab all the remove buttons and attached a click event listener to them
+        $(".btn-delete").click(function() {
+            // Pull out the id and name of the item we want to remove
+            var adId   = $(this).data("id");
+            var adName = $(this).data("name");
+            
+            // Make sure the user actually wanted to delete that park
+            if (confirm("Are you sure you want to delete " + adName + "?")) {
+                // Put that ID into our hidden form field
+                $("#delete-id").val(adId);
+                
+                // Submit the form
+                $("#delete-form").submit();
+            }
+        });
+    })();
+
 </script>
 </html>
