@@ -191,15 +191,15 @@ extract(pageController());
 		<br>
 		<a id = "pricebtn"><label>Change Price</label></a>
 		<br>
-		<input class = "hidden" type="text" id="price" name="price" placeholder = "<?=$price?>">
+		<input class = "hidden" type="text" id="price" name="price" value = "<?=$price?>">
 		<br>
 		<a id = "descriptionbtn"><label>Change Description</label></a>
 		<br>
-		<input class = "hidden" type="textarea" id="description" name="description" placeholder = "<?=$description?>">
+		<input class = "hidden" type="textarea" id="description" name="description" value = "<?=$description?>">
 		<br>
 		<a id = "contactbtn"><label>Change Contact</label></a>
 		<br>
-		<input class = "hidden" type="text" id="contact" name="contact" placeholder="<?=$contact?>"> 
+		<input class = "hidden" type="text" id="contact" name="contact" value="<?=$contact?>"> 
 		<br>
 		<input type = "submit" name = "submit" value = "Save">
 		<button class = "btn-default"><a href="/users">Back to Profile</a></button>

@@ -96,6 +96,9 @@ function pageController(){
 			$user->attributes['email'] = $email;
 			$user->attributes['password'] = $password;
 			$user->save();
+
+			header('Location: /users');
+			exit();
 		}
 	}
 
